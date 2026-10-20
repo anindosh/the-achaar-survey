@@ -107,8 +107,12 @@
     card.onsubmit = (e) => {
       e.preventDefault();
       if (submitting) return;
-      const problem = api.missing() || api.invalid();
-      if (problem) { error.textContent = problem; return; }
+      if (api.validate) {
+        if (!api.validate()) return;
+      } else {
+        const problem = api.missing() || api.invalid();
+        if (problem) { error.textContent = problem; return; }
+      }
       api.save();
       saveDraft();
       if (q.reaction) react(q.reaction);
@@ -117,6 +121,7 @@
   }
 
   function buildFields(q, body) {
+    const EMAIL = /^\S+@\S+\.\S+$/;
     const inputs = q.fields.map((f) => {
       const wrap = el("label", "line-field");
       const input = document.createElement("input");
@@ -129,13 +134,32 @@
       if (f.type === "email") input.autocomplete = "email";
       if (f.id === "name") input.autocomplete = "given-name";
       wrap.append(input);
-      body.append(wrap);
-      return { f, input };
+      const error = el("p", "field__error");
+      error.setAttribute("role", "alert");
+      body.append(wrap, error);
+      input.addEventListener("input", () => { error.textContent = ""; });
+      return { f, input, error };
     });
     setTimeout(() => inputs[0] && inputs[0].input.focus({ preventScroll: true }), 350);
+
+    // Each field reports its own problem, shown right under it.
+    const problemWith = ({ f, input }) => {
+      const v = input.value.trim();
+      if (f.required && !v) return f.missing || "Please fill this in :(";
+      if (f.type === "email" && v && !EMAIL.test(v)) return "That email ID doesn’t look right :(";
+      return "";
+    };
     return {
-      missing: () => (inputs.some(({ f, input }) => f.required && !input.value.trim()) ? "Please tell us your name 😞" : ""),
-      invalid: () => (inputs.some(({ f, input }) => f.type === "email" && input.value.trim() && !/^\S+@\S+\.\S+$/.test(input.value.trim())) ? "That email looks a little off." : ""),
+      missing: () => (inputs.some(({ f, input }) => f.required && !input.value.trim()) ? "missing" : ""),
+      invalid: () => "",
+      validate: () => {
+        let ok = true;
+        inputs.forEach((i) => {
+          i.error.textContent = problemWith(i);
+          if (i.error.textContent && ok) { ok = false; i.input.focus({ preventScroll: true }); }
+        });
+        return ok;
+      },
       save: () => inputs.forEach(({ f, input }) => {
         const v = input.value.trim();
         if (v) answers[f.id] = v; else delete answers[f.id];

@@ -195,7 +195,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* underlined text fields */
 .line-field { position: relative; display: block; padding-bottom: 6px; }
-.line-field + .line-field { margin-top: calc(4 * var(--u)); }
+.line-field ~ .line-field { margin-top: calc(4 * var(--u)); }
 .line-field::after {
   content: "";
   position: absolute;
@@ -266,7 +266,11 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 }
 .spice__ends { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: rgba(255, 243, 194, .7); }
 
-.q__error { min-height: 1.3em; margin: 12px 0 0; font-size: calc(13 * var(--u)); color: var(--cream); } /* matches .field */
+.q__error,
+.field__error { margin: 12px 0 0; font-size: calc(13 * var(--u)); color: #590E0E; } /* same size as .field, same red as the waiting arrow */
+.q__error { min-height: 1.3em; }
+.field__error { margin: 6px 0 0; }
+.field__error:empty { display: none; }
 
 /* back / next arrows */
 .q__nav {
@@ -373,7 +377,8 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .opt__emoji   { font-size: 23px; }
   .spice__label { font-size: 21px; }
   .spice__ends  { font-size: 17px; }
-  .q__error     { font-size: calc(18 * var(--u)); }
+  .q__error,
+  .field__error { font-size: calc(18 * var(--u)); }
   .reaction     { font-size: 27px; }
 }
 

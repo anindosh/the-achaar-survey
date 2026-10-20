@@ -5,16 +5,17 @@
 //   type      "fields" | "longtext" | "single" | "multi" | "chips" | "spice"
 //             ("fields" puts several underlined inputs on one screen, each with its own column)
 //   required  true to make it mandatory (the next arrow stays dark until it's answered)
+//   missing   for a "fields" entry: the message shown under it when it is left empty
 //   options   for single / multi / chips: [label, emoji?] pairs
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
   {
     id: "about",
     type: "fields",
-    title: "We want to get to know you",
+    title: "We want to get to know you :)",
     fields: [
-      { id: "name", column: "Name", type: "text", placeholder: "Your name*", required: true },
-      { id: "email", column: "Email", type: "email", placeholder: "Your email ID" }
+      { id: "name", column: "Name", type: "text", placeholder: "Your name*", required: true, missing: "Please tell us your name :(" },
+      { id: "email", column: "Email", type: "email", placeholder: "Your email ID*", required: true, missing: "Please tell us your email ID :(" }
     ],
     reaction: "Namaste!"
   },
