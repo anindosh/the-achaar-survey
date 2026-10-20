@@ -7,8 +7,8 @@
   /* The homepage is drawn on a 390 × 844 mobile artboard. 1 design px = var(--px). */
   --stage-w: min(100vw, 480px);
   --px: calc(var(--stage-w) / 390);
-  --hand: "Gochi Hand", "Comic Sans MS", cursive;
-  --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hand: "Lacquer", "Comic Sans MS", cursive;
+  --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -56,10 +56,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
   animation: float 6s ease-in-out infinite;
 }
 .deco--chillies { top: calc(-2 * var(--px)); right: 0; width: calc(151 * var(--px)); }
-.deco--note     { top: calc(145 * var(--px)); left: 0; width: calc(278 * var(--px)); animation-delay: -1s; }
+.deco--note     { top: calc(150 * var(--px)); left: 0; width: calc(274 * var(--px)); animation-delay: -1s; }
 .deco--bowl     { top: calc(80 * var(--px)); right: calc(-2 * var(--px)); width: calc(115 * var(--px)); animation-delay: -2.5s; }
 .deco--jar      { top: calc(366 * var(--px)); left: 0; width: calc(73 * var(--px)); animation-delay: -4s; }
-.deco--nani     { bottom: 0; left: 0; width: calc(128 * var(--px)); animation: none; }
+.deco--nani     { bottom: 0; left: 0; width: calc(161 * var(--px)); animation: none; clip-path: inset(calc(14 * var(--px)) 0 0 0); }
 .deco--tomatoes { bottom: 0; right: calc(-1 * var(--px)); width: calc(167 * var(--px)); animation-delay: -3s; }
 
 @keyframes float {
@@ -81,7 +81,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   margin: 0;
   font-family: var(--hand);
   font-weight: 400;
-  font-size: calc(50 * var(--px));
+  font-size: calc(42 * var(--px));
   line-height: 1;
   letter-spacing: calc(1 * var(--px));
   text-transform: uppercase;
@@ -90,16 +90,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 .home__sub {
-  margin: calc(18 * var(--px)) 0 0;
+  margin: calc(22 * var(--px)) 0 0;
   font-size: calc(14 * var(--px));
   line-height: 1.25;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.055em;
   color: var(--white);
   text-align: left;
 }
 
 .start-btn {
-  margin-top: calc(44 * var(--px));
+  margin-top: calc(46 * var(--px));
   padding: 0;
   border: 0;
   background: none;
