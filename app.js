@@ -134,7 +134,7 @@
     });
     setTimeout(() => inputs[0] && inputs[0].input.focus({ preventScroll: true }), 350);
     return {
-      missing: () => (inputs.some(({ f, input }) => f.required && !input.value.trim()) ? "Arre, we need your name first!" : ""),
+      missing: () => (inputs.some(({ f, input }) => f.required && !input.value.trim()) ? "Please tell us your name :(" : ""),
       invalid: () => (inputs.some(({ f, input }) => f.type === "email" && input.value.trim() && !/^\S+@\S+\.\S+$/.test(input.value.trim())) ? "That email looks a little off." : ""),
       save: () => inputs.forEach(({ f, input }) => {
         const v = input.value.trim();
