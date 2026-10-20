@@ -359,6 +359,24 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 }
 @keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
 
+/* ---------- phones: every text size is 5pt larger than the base design ---------- */
+@media (max-width: 899px), (max-aspect-ratio: 1/1) {
+  .home__sub   { font-size: calc(21 * var(--u)); }
+  .done__title { font-size: calc(35 * var(--u)); }
+
+  /* the bigger type needs a wider column than the 218px one in the mockup */
+  .view--survey { --col: calc(330 * var(--u)); }
+  .q__title     { font-size: calc(23 * var(--u)); }
+  .q__hint      { font-size: 18px; }
+  .field        { font-size: calc(18 * var(--u)); }
+  .opt          { font-size: calc(21 * var(--u)); }
+  .opt__emoji   { font-size: 23px; }
+  .spice__label { font-size: 21px; }
+  .spice__ends  { font-size: 17px; }
+  .q__error     { font-size: 18px; }
+  .reaction     { font-size: 27px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
