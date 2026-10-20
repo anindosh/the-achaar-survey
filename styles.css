@@ -57,6 +57,18 @@ button { font: inherit; color: inherit; cursor: pointer; }
   overflow: hidden;
 }
 
+/* iPhone Safari's toolbar floats over the page, so let the home screen run underneath it
+   (large viewport) instead of stopping above it; the page is locked so it can't scroll. */
+@supports (-webkit-touch-callout: none) {
+  .view--home,
+  .view--done {
+    --u: min(100vw / 390, 100lvh / 844);
+    height: 100lvh;
+  }
+  html:has(.view--home.is-active),
+  html:has(.view--done.is-active) { overflow: hidden; }
+}
+
 .deco {
   position: absolute;
   display: block;
@@ -67,8 +79,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .deco--note     { top: 17.8%; left: 0;  width: calc(274 * var(--u)); }
 .deco--bowl     { top: 9.5%;  right: 0; width: calc(115 * var(--u)); }
 .deco--jar      { top: 43.4%; left: 0;  width: calc(73 * var(--u)); }
-.deco--nani     { bottom: 0;  left: 0;  width: calc(161 * var(--u)); clip-path: inset(calc(14 * var(--u)) 0 0 0); }
-.deco--tomatoes { bottom: 0;  right: 0; width: calc(167 * var(--u)); }
+/* the clip hides the faint frame edge baked into the top of these two SVGs */
+.deco--nani     { bottom: 0;  left: 0;  width: calc(161 * var(--u)); clip-path: inset(calc(22 * var(--u)) 0 0 0); }
+.deco--tomatoes { bottom: 0;  right: 0; width: calc(167 * var(--u)); clip-path: inset(calc(12 * var(--u)) 0 0 0); }
 
 .home__content {
   position: absolute;
