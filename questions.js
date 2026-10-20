@@ -2,18 +2,20 @@
 //
 //   id        unique key (don't change it after people start answering)
 //   column    the column header in the Google Sheet
-//   type      "text" | "longtext" | "email" | "single" | "multi" | "chips" | "spice"
-//   required  true to make it mandatory (default false → shows a "skip" link)
+//   type      "fields" | "longtext" | "single" | "multi" | "chips" | "spice"
+//             ("fields" puts several underlined inputs on one screen, each with its own column)
+//   required  true to make it mandatory (the next arrow stays dark until it's answered)
 //   options   for single / multi / chips: [label, emoji?] pairs
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
   {
-    id: "name",
-    column: "Name",
-    type: "text",
-    title: "First things first, what do we call you?",
-    placeholder: "Your name",
-    required: true,
+    id: "about",
+    type: "fields",
+    title: "We want to get to know you",
+    fields: [
+      { id: "name", column: "Name", type: "text", placeholder: "Your name*", required: true },
+      { id: "email", column: "Email", type: "email", placeholder: "Your email ID" }
+    ],
     reaction: "Namaste!"
   },
   {
@@ -111,13 +113,5 @@ window.SURVEY_QUESTIONS = [
     title: "Tell us about the achaar you can’t stop thinking about.",
     hint: "Whose was it? What made it special?",
     placeholder: "My Nani’s mango achaar…"
-  },
-  {
-    id: "email",
-    column: "Email",
-    type: "email",
-    title: "Want a taste when it’s ready?",
-    hint: "Leave your email and we’ll tell you first. No spam, promise.",
-    placeholder: "you@example.com"
   }
 ];

@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
   <title>The Achaar Survey</title>
   <meta name="description" content="We're cooking something up. But first, we want to hear from you.">
   <meta name="theme-color" content="#A81A1A">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lacquer&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -34,12 +34,8 @@
 
     <!-- SURVEY -->
     <section class="view view--survey" id="survey" aria-live="polite">
-      <header class="survey__top">
-        <button class="back-btn" id="back-btn" type="button" aria-label="Previous question">←</button>
-        <div class="meter" aria-hidden="true"><div class="meter__fill" id="meter-fill"></div></div>
-        <span class="meter__count" id="meter-count"></span>
-      </header>
       <form class="survey__card" id="card" novalidate></form>
+      <nav class="dots" id="dots" aria-label="Survey progress"></nav>
     </section>
 
     <!-- THANK YOU -->
