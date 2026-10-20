@@ -266,7 +266,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 }
 .spice__ends { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: rgba(255, 243, 194, .7); }
 
-.q__error { min-height: 1.3em; margin: 12px 0 0; font-size: 13px; color: var(--cream); }
+.q__error { min-height: 1.3em; margin: 12px 0 0; font-size: calc(13 * var(--u)); color: var(--cream); } /* matches .field */
 
 /* back / next arrows */
 .q__nav {
@@ -361,7 +361,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 
 /* ---------- phones: every text size is 5pt larger than the base design ---------- */
 @media (max-width: 899px), (max-aspect-ratio: 1/1) {
-  .home__sub   { font-size: calc(21 * var(--u)); }
+  .home__sub   { font-size: calc(19 * var(--u)); }
   .done__title { font-size: calc(35 * var(--u)); }
 
   /* the bigger type needs a wider column than the 218px one in the mockup */
@@ -373,7 +373,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .opt__emoji   { font-size: 23px; }
   .spice__label { font-size: 21px; }
   .spice__ends  { font-size: 17px; }
-  .q__error     { font-size: 18px; }
+  .q__error     { font-size: calc(18 * var(--u)); }
   .reaction     { font-size: 27px; }
 }
 
