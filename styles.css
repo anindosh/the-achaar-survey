@@ -25,8 +25,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .stage {
   position: relative;
-  width: var(--stage-w);
-  margin: 0 auto;
+  width: 100%;
   min-height: 100svh;
   overflow: hidden;
 }
@@ -35,7 +34,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .view {
   position: absolute;
   inset: 0;
-  min-height: max(100svh, calc(844 * var(--px)));
+  min-height: 100svh;
   opacity: 0;
   visibility: hidden;
   transition: opacity .45s ease, visibility 0s linear .45s;
@@ -47,29 +46,33 @@ button { font: inherit; color: inherit; cursor: pointer; }
   transition: opacity .45s ease;
 }
 
-/* ---------- home decorations (positions taken from the 390 × 844 mockup) ---------- */
+/* ---------- home: always exactly one screen tall ----------
+   Phone layout comes from the 390 × 844 mockup. --u is one mockup pixel, scaled so the
+   whole artboard fits the screen; vertical positions are percentages of the 844px height. */
+.view--home,
+.view--done {
+  --u: min(100vw / 390, 100svh / 844);
+  height: 100svh;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .deco {
   position: absolute;
   display: block;
   pointer-events: none;
   user-select: none;
-  animation: float 6s ease-in-out infinite;
 }
-.deco--chillies { top: calc(-2 * var(--px)); right: 0; width: calc(151 * var(--px)); }
-.deco--note     { top: calc(150 * var(--px)); left: 0; width: calc(274 * var(--px)); animation-delay: -1s; }
-.deco--bowl     { top: calc(80 * var(--px)); right: calc(-2 * var(--px)); width: calc(115 * var(--px)); animation-delay: -2.5s; }
-.deco--jar      { top: calc(366 * var(--px)); left: 0; width: calc(73 * var(--px)); animation-delay: -4s; }
-.deco--nani     { bottom: 0; left: 0; width: calc(161 * var(--px)); animation: none; clip-path: inset(calc(14 * var(--px)) 0 0 0); }
-.deco--tomatoes { bottom: 0; right: calc(-1 * var(--px)); width: calc(167 * var(--px)); animation-delay: -3s; }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0); }
-  50%      { transform: translateY(calc(-4 * var(--px))) rotate(.6deg); }
-}
+.deco--chillies { top: 0;     right: 0; width: calc(151 * var(--u)); }
+.deco--note     { top: 17.8%; left: 0;  width: calc(274 * var(--u)); }
+.deco--bowl     { top: 9.5%;  right: 0; width: calc(115 * var(--u)); }
+.deco--jar      { top: 43.4%; left: 0;  width: calc(73 * var(--u)); }
+.deco--nani     { bottom: 0;  left: 0;  width: calc(161 * var(--u)); clip-path: inset(calc(14 * var(--u)) 0 0 0); }
+.deco--tomatoes { bottom: 0;  right: 0; width: calc(167 * var(--u)); }
 
 .home__content {
   position: absolute;
-  top: 41.5%;
+  top: 42%;
   left: 0;
   right: 0;
   display: flex;
@@ -77,21 +80,23 @@ button { font: inherit; color: inherit; cursor: pointer; }
   align-items: center;
 }
 
-.home__title {
+.home__title { margin: 0; line-height: 0; }
+.home__title img { display: block; width: calc(276 * var(--u)); height: auto; }
+
+.done__title {
   margin: 0;
   font-family: var(--hand);
   font-weight: 400;
-  font-size: calc(42 * var(--px));
-  line-height: 1;
-  letter-spacing: calc(1 * var(--px));
+  font-size: calc(40 * var(--u));
+  line-height: 1.05;
   text-transform: uppercase;
   color: var(--cream);
   text-align: center;
 }
 
 .home__sub {
-  margin: calc(22 * var(--px)) 0 0;
-  font-size: calc(14 * var(--px));
+  margin: calc(22 * var(--u)) 0 0;
+  font-size: calc(14 * var(--u));
   line-height: 1.25;
   letter-spacing: -0.055em;
   color: var(--white);
@@ -99,11 +104,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 .start-btn {
-  margin-top: calc(46 * var(--px));
+  margin-top: calc(46 * var(--u));
   padding: 0;
   border: 0;
   background: none;
-  width: calc(203 * var(--px));
+  width: calc(203 * var(--u));
   transition: transform .2s cubic-bezier(.3, 1.6, .5, 1);
   animation: wiggle 3.2s ease-in-out 1.2s infinite;
 }
@@ -119,8 +124,25 @@ button { font: inherit; color: inherit; cursor: pointer; }
   95% { transform: rotate(-2deg); }
 }
 
+/* ---------- laptop / desktop: spread the collage across a landscape screen ---------- */
+@media (min-width: 900px) and (min-aspect-ratio: 1/1) {
+  .view--home,
+  .view--done { --u: min(100svh / 560, 100vw / 900); }
+
+  .home__content,
+  .done__content { top: 50%; transform: translateY(-50%); }
+
+  /* every photo is cut flat on the side(s) that bleed off the screen, so they stay flush with those edges */
+  .deco--note { top: 14%; }
+  .deco--bowl { top: 18%; }
+  .deco--jar  { top: 33%; }
+}
+
 /* ---------- survey ---------- */
 .view--survey {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   padding: calc(20 * var(--px)) calc(24 * var(--px)) calc(32 * var(--px));
