@@ -251,6 +251,45 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .opt[aria-pressed="true"] { color: var(--red); }
 .opt[aria-pressed="true"] .opt__shape path { fill: var(--cream); }
 
+/* picture choices (e.g. "Which do you prefer?") */
+.q--pictures .q__title { text-align: center; }
+.pics {
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  gap: calc(16 * var(--u));
+  margin: calc(34 * var(--u)) calc(-24 * var(--u)) 0; /* a little wider than the text column so both captions fit */
+}
+.pic {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(14 * var(--u));
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cream);
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1);
+}
+.pic img {
+  display: block;
+  width: calc(var(--w) * var(--u));
+  height: auto;
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1);
+}
+.pic:hover img { transform: translateY(-4px) rotate(-2deg); }
+.pic:active { transform: scale(.97); }
+.pic:focus-visible { outline: 2px dashed var(--cream); outline-offset: 6px; border-radius: 8px; }
+.pic__label {
+  font-size: calc(13 * var(--u));
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: nowrap;
+}
+.pic[aria-pressed="true"] img { transform: scale(1.06); }
+.pic[aria-pressed="true"] .pic__label { font-weight: 700; }
+
 .chips { flex-direction: row; flex-wrap: wrap; gap: 8px; }
 .chips .opt { width: auto; padding: 8px 13px; border: 1.5px solid rgba(255, 243, 194, .4); border-radius: 99px; }
 .chips .opt[aria-pressed="true"] { background: var(--cream); border-color: var(--cream); }
@@ -377,6 +416,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .q__hint      { font-size: 18px; }
   .field        { font-size: calc(18 * var(--u)); }
   .opt          { font-size: calc(21 * var(--u)); }
+  .pic__label   { font-size: calc(18 * var(--u)); }
   .opt__emoji   { font-size: 23px; }
   .spice__label { font-size: 21px; }
   .spice__ends  { font-size: 17px; }

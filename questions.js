@@ -2,11 +2,12 @@
 //
 //   id        unique key (don't change it after people start answering)
 //   column    the column header in the Google Sheet
-//   type      "fields" | "longtext" | "single" | "multi" | "chips" | "spice"
+//   type      "fields" | "longtext" | "single" | "multi" | "chips" | "pictures" | "spice"
 //             ("fields" puts several underlined inputs on one screen, each with its own column)
 //   required  true to make it mandatory (the next arrow stays dark until it's answered)
 //   missing   for a "fields" entry: the message shown under it when it is left empty
 //   options   for single / multi / chips: [label, emoji?] pairs
+//             for pictures: { label, image, width } — width is the image's width in mockup px
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
   {
@@ -21,6 +22,17 @@ window.SURVEY_QUESTIONS = [
       ["Only when my food tastes meh"],
       ["On special occasions"],
       ["Never :("]
+    ],
+    required: true
+  },
+  {
+    id: "prefer",
+    column: "Prefers",
+    type: "pictures",
+    title: "Which do you prefer?",
+    options: [
+      { label: "Pieces of the achaar", image: "assets/pieces.svg", width: 84 },
+      { label: "Masala of the achaar", image: "assets/masala.svg", width: 170 }
     ],
     required: true
   },

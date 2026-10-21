@@ -74,7 +74,7 @@
     card.innerHTML = "";
     card.className = "survey__card";
     void card.offsetWidth; // restart animation
-    card.classList.add(direction < 0 ? "enter-back" : "enter", ["single", "multi", "chips", "spice"].includes(q.type) ? "q--choice" : "q--fields");
+    card.classList.add(direction < 0 ? "enter-back" : "enter", ["single", "multi", "chips", "spice", "pictures"].includes(q.type) ? "q--choice" : "q--fields", `q--${q.type}`);
 
     const title = el("h2", "q__title", q.title);
     title.id = `q-${q.id}`;
@@ -100,7 +100,7 @@
     nav.append(backBtn, nextBtn);
     card.append(nav);
 
-    const builders = { fields: buildFields, longtext: buildLongText, single: buildChoice, multi: buildChoice, chips: buildChoice, spice: buildSpice };
+    const builders = { fields: buildFields, longtext: buildLongText, single: buildChoice, multi: buildChoice, chips: buildChoice, pictures: buildPictures, spice: buildSpice };
     const api = (builders[q.type] || buildLongText)(q, body, nextBtn);
 
     // The next arrow stays dark until the question has what it needs.
@@ -190,6 +190,38 @@
         const v = input.value.trim();
         if (v) answers[q.id] = v; else delete answers[q.id];
       }
+    };
+  }
+
+  // Two (or more) photos side by side with a caption; tapping one answers and moves on.
+  function buildPictures(q, body, nextBtn) {
+    body.classList.add("pics");
+    body.setAttribute("role", "group");
+    body.setAttribute("aria-labelledby", `q-${q.id}`);
+    let selected = answers[q.id];
+
+    q.options.forEach((o) => {
+      const btn = el("button", "pic");
+      btn.type = "button";
+      btn.setAttribute("aria-pressed", String(selected === o.label));
+      const img = document.createElement("img");
+      img.src = o.image;
+      img.alt = "";
+      img.style.setProperty("--w", o.width);
+      btn.append(img, el("span", "pic__label", o.label));
+      btn.addEventListener("click", () => {
+        selected = o.label;
+        body.querySelectorAll(".pic").forEach((b) => b.setAttribute("aria-pressed", "false"));
+        btn.setAttribute("aria-pressed", "true");
+        setTimeout(() => card.requestSubmit(nextBtn), 150);
+      });
+      body.append(btn);
+    });
+
+    return {
+      missing: () => (q.required && !selected ? "Arre, pick one first!" : ""),
+      invalid: () => "",
+      save: () => { if (selected) answers[q.id] = selected; else delete answers[q.id]; }
     };
   }
 
