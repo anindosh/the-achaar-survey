@@ -92,16 +92,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .home__title { margin: 0; line-height: 0; }
 .home__title img { display: block; width: calc(276 * var(--u)); height: auto; }
 
-.done__title {
-  margin: 0;
-  font-weight: 700;
-  font-size: calc(30 * var(--u));
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: var(--cream);
-  text-align: center;
-}
-
 .home__sub {
   margin: calc(22 * var(--u)) 0 0;
   font-size: calc(16 * var(--u));
@@ -134,11 +124,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ---------- laptop / desktop: spread the collage across a landscape screen ---------- */
 @media (min-width: 900px) and (min-aspect-ratio: 1/1) {
-  .view--home,
-  .view--done { --u: min(100svh / 560, 100vw / 900); }
+  .view--home { --u: min(100svh / 560, 100vw / 900); }
 
-  .home__content,
-  .done__content { top: 50%; transform: translateY(-50%); }
+  .home__content { top: 50%; transform: translateY(-50%); }
   .home__sub { font-size: calc(14 * var(--u)); }
 
   /* every photo is cut flat on the side(s) that bleed off the screen, so they stay flush with those edges */
@@ -430,25 +418,22 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .check-field__label { font-size: calc(13 * var(--u)); line-height: 1.35; letter-spacing: -0.02em; color: var(--cream); }
 .check-field + .line-field { margin-top: calc(16 * var(--u)); }
 
-/* Submit button (last page) — disabled until name and email are in */
+/* Submit button (last page) — disabled (faded) until name and email are in */
 .submit-btn {
   align-self: center;
   margin-top: calc(34 * var(--u));
-  min-width: calc(190 * var(--u));
-  padding: calc(13 * var(--u)) calc(34 * var(--u)) calc(12 * var(--u));
+  padding: 0;
   border: 0;
-  border-radius: 46% 54% 50% 50% / 60% 55% 45% 40%;
-  background: var(--cream);
-  color: var(--red);
-  font-size: calc(17 * var(--u));
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  transition: background .2s, color .2s, transform .2s cubic-bezier(.3, 1.6, .5, 1);
+  background: none;
+  width: calc(203 * var(--u));
+  transition: opacity .2s, transform .2s cubic-bezier(.3, 1.6, .5, 1);
 }
-.submit-btn:hover:not(:disabled) { transform: scale(1.04) rotate(-1.5deg); }
-.submit-btn:active:not(:disabled) { transform: scale(.97); }
-.submit-btn:disabled { background: #590E0E; color: rgba(255, 243, 194, .45); cursor: default; }
-.submit-btn:focus-visible { outline: 2px dashed var(--cream); outline-offset: 5px; }
+.submit-btn img { display: block; width: 100%; }
+.submit-btn:hover:not(:disabled) { transform: scale(1.05) rotate(-2deg); }
+.submit-btn:active:not(:disabled) { transform: scale(.96); }
+.submit-btn:disabled { opacity: .35; cursor: default; }
+.submit-btn.is-sending { opacity: .7; animation: wiggle 1s ease-in-out infinite; }
+.submit-btn:focus-visible { outline: 2px dashed var(--cream); outline-offset: 5px; border-radius: 30px; }
 .arrow--next.is-hidden { visibility: hidden; }
 .field__error:empty { display: none; }
 
@@ -533,16 +518,46 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .opt { font-size: calc(13 * var(--u)); } /* same as the picture captions */
 }
 
-/* ---------- done ---------- */
+/* ---------- done (final screen, from the 390 × 844 mockup) ---------- */
 .done__content {
   position: absolute;
-  top: 38%;
-  left: 0; right: 0;
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center;
-  padding: 0 24px;
+  top: calc(117 * var(--u));
+  left: 50%;
+  width: calc(296 * var(--u));
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.done__content .home__sub { text-align: center; }
+.done__title { margin: 0 0 calc(28 * var(--u)); line-height: 0; }
+.done__title img { display: block; width: calc(193 * var(--u)); }
+.done__text {
+  margin: 0 0 calc(16 * var(--u));
+  align-self: stretch;
+  font-size: calc(14 * var(--u));
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  color: var(--white);
+}
+.whatsapp-btn {
+  display: block;
+  margin-top: calc(30 * var(--u));
+  width: calc(203 * var(--u));
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1);
+  animation: wiggle 3.2s ease-in-out 1.2s infinite;
+}
+.whatsapp-btn img { display: block; width: 100%; }
+.whatsapp-btn:hover  { transform: scale(1.06) rotate(-2deg); animation-play-state: paused; }
+.whatsapp-btn:active { transform: scale(.96); }
+.whatsapp-btn:focus-visible { outline: 3px dashed var(--cream); outline-offset: 6px; border-radius: 30px; }
+.done__photo {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: calc(390 * var(--u));
+  transform: translateX(-50%);
+  pointer-events: none;
+}
 .chilli-rain {
   position: fixed; top: -40px; z-index: 6; font-size: 26px; pointer-events: none;
   animation: fall linear forwards;
@@ -552,7 +567,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 /* ---------- phones: every text size is 5pt larger than the base design ---------- */
 @media (max-width: 899px), (max-aspect-ratio: 1/1) {
   .home__sub   { font-size: calc(19 * var(--u)); }
-  .done__title { font-size: calc(35 * var(--u)); }
+  .done__text  { font-size: calc(16 * var(--u)); }
 
   /* the bigger type needs a wider column than the 218px one in the mockup */
   .view--survey { --col: calc(330 * var(--u)); }
@@ -567,7 +582,6 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .q__error,
   .field__error { font-size: calc(18 * var(--u)); }
   .check-field__label { font-size: calc(18 * var(--u)); }
-  .submit-btn { font-size: calc(21 * var(--u)); }
   .reaction     { font-size: 27px; }
 }
 

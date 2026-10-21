@@ -14,6 +14,15 @@
   const OPTION_SHAPE = '<svg class="opt__shape" viewBox="0 0 214 33" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" d="M128.105 0.602713C116.832 0.602713 88.5542 0.726987 75.5296 1.00862C56.1394 1.42791 44.6577 1.61428 30.5791 2.14764C25.7169 2.33184 17.0029 2.80959 6.25131 3.53004C2.14357 3.8053 1.54653 4.17932 1.01371 8.60744C0.480883 13.0356 0.228056 21.5786 0.927692 26.1386C1.62733 30.6987 3.28709 31.0168 5.75622 31.3481C23.8682 33.7778 71.8388 31.6984 88.6687 31.1268C97.5809 30.8241 106.22 30.7949 114.523 30.6231C123.163 30.4443 132.233 30.365 148.52 30.2285C187.114 29.9051 198.519 29.7284 206.641 29.0488C210.041 28.7642 210.793 27.717 212.21 24.646C215.5 17.5198 211.598 12.0589 210.419 10.6988C208.567 8.56225 206.964 7.26054 205.288 5.95315C203.62 4.65178 200.275 3.36012 195.491 2.21647C187.728 1.24876 181.379 0.713068 168.806 0.530495C158.057 0.458037 148.943 0.527873 128.105 0.602713Z"/></svg>';
 
   const $ = (sel) => document.querySelector(sel);
+
+  // WhatsApp button on the final screen
+  (() => {
+    const cfg = window.SURVEY_CONFIG || {};
+    const number = String(cfg.WHATSAPP_NUMBER || "").replace(/\D/g, "");
+    const text = encodeURIComponent(cfg.WHATSAPP_MESSAGE || "");
+    const btn = document.querySelector("#whatsapp-btn");
+    if (btn) btn.href = `https://wa.me/${number}${text ? `?text=${text}` : ""}`;
+  })();
   const views = { home: $("#home"), survey: $("#survey"), done: $("#done") };
   const card = $("#card");
   const dots = el("div", "dots"); // lives between the back and next arrows
@@ -116,8 +125,9 @@
     if (isLast) {
       nextBtn.classList.add("is-hidden");
       nextBtn.tabIndex = -1;
-      submitBtn = el("button", "submit-btn", "Submit");
+      submitBtn = el("button", "submit-btn");
       submitBtn.type = "submit";
+      submitBtn.innerHTML = '<img src="assets/button-submit.svg" alt="Submit">';
       card.insertBefore(submitBtn, nav);
     }
 
@@ -399,7 +409,7 @@
   async function submit() {
     submitting = true;
     const nextBtn = card.querySelector(".submit-btn") || card.querySelector(".arrow--next");
-    if (nextBtn) { nextBtn.disabled = true; if (nextBtn.classList.contains("submit-btn")) nextBtn.textContent = "Sending…"; }
+    if (nextBtn) { nextBtn.disabled = true; nextBtn.classList.add("is-sending"); }
     const payload = Object.assign(sheetRow(), { userAgent: navigator.userAgent });
 
     try {
@@ -414,13 +424,12 @@
     } catch (err) {
       console.error("Could not send answers:", err, payload);
       submitting = false;
-      if (nextBtn) { nextBtn.disabled = false; if (nextBtn.classList.contains("submit-btn")) nextBtn.textContent = "Try again"; }
+      if (nextBtn) { nextBtn.disabled = false; nextBtn.classList.remove("is-sending"); }
       const error = card.querySelector(".q__error");
       if (error) error.textContent = "Hmm, that didn’t go through. Check your connection and try again.";
       return;
     }
 
-    $("#done-name").textContent = answers.name || "hot stuff";
     clearDraft();
     answers = {};
     submitting = false;

@@ -31,6 +31,10 @@ assets/         images and the Start Survey button
 
 > If you change `Code.gs` later, use **Deploy → Manage deployments → ✏️ → Version: New version**. That keeps the same URL.
 
+### WhatsApp button
+
+The final screen's WhatsApp button opens a chat with you. Put your number in `config.js` as digits with the country code, e.g. `WHATSAPP_NUMBER: "919876543210"`, and change `WHATSAPP_MESSAGE` to set the pre-filled message.
+
 ## 2. Put the site online (GitHub Pages)
 
 1. In this repo on GitHub, go to **Settings → Pages**.
