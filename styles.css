@@ -343,14 +343,15 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 /* four photos: a 2 × 2 grid, captions left-aligned under each photo */
 .pics.is-grid {
   display: grid;
-  grid-template-columns: repeat(2, calc(152 * var(--u)));
+  grid-template-columns: repeat(2, calc(172 * var(--u)));
   justify-content: center;
   align-items: end;
   gap: calc(16 * var(--u)) calc(18 * var(--u));
+  margin-inline: calc((var(--col) - 362 * var(--u)) / 2); /* a little wider than the text column to fit the big photos */
 }
 .is-grid .pic { position: relative; align-items: flex-start; }
 .is-grid .pic__photo { max-width: 100%; }
-.is-grid .pic img { width: auto; height: calc(158 * var(--u)); max-width: 100%; object-fit: contain; object-position: left bottom; }
+.is-grid .pic img { width: auto; height: calc(148 * var(--u) * var(--pic-scale)); /* same height as the "Which do you prefer?" photos */ max-width: 100%; object-fit: contain; object-position: left bottom; }
 .is-grid .pic__label { text-align: left; white-space: normal; min-height: 2.4em; line-height: 1.2; }
 /* no scaling here: scaling shows faint frame edges baked into these SVGs */
 .is-grid .pic img,
@@ -467,7 +468,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   /* landscape screens have room for all of them in one row */
   .pics { --pic-scale: 1.3; flex-wrap: nowrap; gap: calc(40 * var(--u)); margin: calc(42 * var(--u)) 0 0; }
   .pic, .pic:nth-child(3n) { flex: 0 0 auto; }
-  .pics.is-grid { grid-template-columns: repeat(4, calc(150 * var(--u))); justify-content: center; gap: calc(24 * var(--u)); margin-inline: calc((var(--col) - 672 * var(--u)) / 2); }
+  .pics.is-grid { grid-template-columns: repeat(4, calc(200 * var(--u))); justify-content: center; gap: calc(24 * var(--u)); margin-inline: calc((var(--col) - 872 * var(--u)) / 2); }
   .q__title { font-size: calc(16 * var(--u)); }
   .opt { font-size: calc(13 * var(--u)); } /* same as the picture captions */
 }
