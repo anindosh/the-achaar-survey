@@ -46,10 +46,8 @@ window.SURVEY_QUESTIONS = [
     hint: "Select all that apply",
     options: [
       ["With home food"],
-      ["With ordered in food"],
       ["Packed lunchbox"],
-      ["At canteen or cafeteria"],
-      ["In hostel or PG"],
+      ["In cafeteria"],
       ["In restaurants"],
       ["While travelling (trains, flights, road trips)"],
       ["Abroad (living or travelling outside India)"],
