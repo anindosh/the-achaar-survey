@@ -121,35 +121,6 @@ window.SURVEY_QUESTIONS = [
     required: true
   },
   {
-    id: "favourites",
-    column: "Favourite achaars",
-    type: "chips",
-    title: "Your ride-or-die achaars?",
-    hint: "Pick as many as you like.",
-    options: [
-      ["Aam (Mango)", "🥭"],
-      ["Nimbu (Lemon)", "🍋"],
-      ["Hari mirch", "🌶️"],
-      ["Lehsun (Garlic)", "🧄"],
-      ["Gajar (Carrot)", "🥕"],
-      ["Mixed", "🫙"],
-      ["Gongura", "🌿"],
-      ["Kathal (Jackfruit)", "🍈"],
-      ["Something else", "✨"]
-    ],
-    required: true,
-    reaction: "Good taste!"
-  },
-  {
-    id: "spice",
-    column: "Spice level (1-5)",
-    type: "spice",
-    title: "How much heat can you handle?",
-    labels: ["Mild & sweet", "A little kick", "Proper spicy", "Mouth on fire", "Garam masala in human form"],
-    faces: ["😊", "🙂", "😅", "🥵", "🔥"],
-    required: true
-  },
-  {
     id: "matters",
     column: "What matters most",
     type: "multi",
