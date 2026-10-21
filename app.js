@@ -210,7 +210,6 @@
     q.options.forEach((o) => {
       const btn = el("button", "pic");
       btn.type = "button";
-      if (q.options.length === 4) btn.innerHTML = OPTION_SHAPE; // grid photos sit in the hand-drawn box
       btn.setAttribute("aria-pressed", String(isOn(o.label)));
       const img = document.createElement("img");
       img.src = o.image;
