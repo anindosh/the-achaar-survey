@@ -125,8 +125,8 @@ window.SURVEY_QUESTIONS = [
     column: "What matters most when buying achaar",
     type: "multi",
     title: "What matters most when you buy achaar?",
-    hint: "Select any 2",
-    max: 2,
+    hint: "Select up to 3",
+    max: 3,
     options: [
       ["Tastes like home"],
       ["Less oil"],
