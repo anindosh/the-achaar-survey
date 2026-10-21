@@ -283,6 +283,9 @@
           else if (q.max && selected.filter((s) => !exclusive.includes(s)).length >= q.max) { nudge(btn); return; }
           else selected = selected.filter((s) => !exclusive.includes(s)).concat(label);
           body.querySelectorAll(".opt").forEach((b, i) => b.setAttribute("aria-pressed", String(selected.includes(q.options[i][0]))));
+          // nothing more to choose once the limit is hit or a stand-alone answer (e.g. "Nothing") is picked
+          const done = (q.max && selected.length === q.max) || (selected.length === 1 && exclusive.includes(selected[0]));
+          if (done) setTimeout(() => card.requestSubmit(nextBtn), 300);
         } else {
           selected = label;
           body.querySelectorAll(".opt").forEach((b) => b.setAttribute("aria-pressed", "false"));
