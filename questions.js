@@ -87,10 +87,9 @@ window.SURVEY_QUESTIONS = [
   },
   {
     id: "source",
-    column: "Where their achaar comes from now",
+    column: "Where most of their achaar comes from",
     type: "single",
-    layout: "tiles",
-    title: "Where does your achaar come from right now?",
+    title: "Where does most of your achaar come from?",
     options: [
       ["Sent from family"],
       ["Made at home"],
