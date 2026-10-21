@@ -425,7 +425,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .pics { --pic-scale: 1.3; flex-wrap: nowrap; gap: calc(40 * var(--u)); margin: calc(42 * var(--u)) 0 0; }
   .pic, .pic:nth-child(3n) { flex: 0 0 auto; }
   .q__title { font-size: calc(16 * var(--u)); }
-  .opt { font-size: 15px; }
+  .opt { font-size: calc(13 * var(--u)); } /* same as the picture captions */
 }
 
 /* ---------- done ---------- */
@@ -454,7 +454,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .q__title     { font-size: calc(23 * var(--u)); }
   .q__hint      { font-size: 18px; }
   .field        { font-size: calc(18 * var(--u)); }
-  .opt          { font-size: calc(21 * var(--u)); }
+  .opt          { font-size: calc(18 * var(--u)); } /* same as the picture captions */
   .pic__label   { font-size: calc(18 * var(--u)); }
   .opt__emoji   { font-size: 23px; }
   .spice__label { font-size: 21px; }
