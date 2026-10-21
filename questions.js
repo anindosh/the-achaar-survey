@@ -10,15 +10,6 @@
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
   {
-    id: "about",
-    type: "fields",
-    title: "We want to get to know you :)",
-    fields: [
-      { id: "name", column: "Name", type: "text", placeholder: "Your name*", required: true, missing: "Please tell us your name :(" },
-      { id: "email", column: "Email", type: "email", placeholder: "Your email ID*", required: true, missing: "Please tell us your email ID :(" }
-    ]
-  },
-  {
     id: "frequency",
     column: "How often they eat achaar",
     type: "single",
@@ -114,5 +105,14 @@ window.SURVEY_QUESTIONS = [
     title: "Tell us about the achaar you can’t stop thinking about.",
     hint: "Whose was it? What made it special?",
     placeholder: "My Nani’s mango achaar…"
+  },
+  {
+    id: "about",
+    type: "fields",
+    title: "Help us put a name to your answers :)",
+    fields: [
+      { id: "name", column: "Name", type: "text", placeholder: "Your name*", required: true, missing: "Please tell us your name :(" },
+      { id: "email", column: "Email", type: "email", placeholder: "Your email ID*", required: true, missing: "Please tell us your email ID :(" }
+    ]
   }
 ];
