@@ -355,11 +355,11 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: calc(7 * var(--u));
-  padding: 12px 16px calc(34 * var(--u) + env(safe-area-inset-bottom));
+  gap: calc(5 * var(--u));
+  padding: 6px 16px calc(14 * var(--u) + env(safe-area-inset-bottom));
 }
 /* every dot is the same hand-drawn blob (assets/dot.svg); only the colour changes */
-.dot { display: block; width: calc(14 * var(--u)); color: #590E0E; transition: color .3s; }
+.dot { display: block; width: calc(10 * var(--u)); color: #590E0E; transition: color .3s; }
 .dot svg { display: block; width: 100%; height: auto; }
 .dot.is-done    { color: #E9A98F; }
 .dot.is-current { color: var(--cream); }
