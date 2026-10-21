@@ -137,27 +137,6 @@ window.SURVEY_QUESTIONS = [
     required: true
   },
   {
-    id: "price",
-    column: "Would pay for 250g",
-    type: "single",
-    title: "What would you happily pay for a 250g jar?",
-    options: [
-      ["Under ₹150"],
-      ["₹150 – ₹250"],
-      ["₹250 – ₹400"],
-      ["₹400+ if it’s really good"]
-    ],
-    required: true
-  },
-  {
-    id: "story",
-    column: "Achaar story",
-    type: "longtext",
-    title: "Tell us about the achaar you can’t stop thinking about.",
-    hint: "Whose was it? What made it special?",
-    placeholder: "My Nani’s mango achaar…"
-  },
-  {
     id: "about",
     type: "fields",
     title: "Help us put a name to your answers :)",
