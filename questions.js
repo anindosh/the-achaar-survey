@@ -32,7 +32,8 @@ window.SURVEY_QUESTIONS = [
     title: "Which do you prefer?",
     options: [
       { label: "Pieces of the achaar", image: "assets/pieces.svg", width: 84 },
-      { label: "Masala of the achaar", image: "assets/masala.svg", width: 170 }
+      { label: "Masala of the achaar", image: "assets/masala.svg", width: 170 },
+      { label: "I need both", image: "assets/both.svg", width: 170 }
     ],
     required: true
   },
