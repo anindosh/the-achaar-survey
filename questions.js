@@ -35,9 +35,9 @@ window.SURVEY_QUESTIONS = [
     type: "pictures",
     title: "Which do you prefer?",
     options: [
-      { label: "Pieces of the achaar", image: "assets/pieces.svg", width: 84 },
-      { label: "Masala of the achaar", image: "assets/masala.svg", width: 170 },
-      { label: "I need both", image: "assets/both.svg", width: 170 }
+      { label: "Pieces of the achaar", image: "assets/pieces.webp", width: 84 },
+      { label: "Masala of the achaar", image: "assets/masala.webp", width: 170 },
+      { label: "I need both", image: "assets/both.webp", width: 170 }
     ],
     required: true
   },
@@ -78,10 +78,10 @@ window.SURVEY_QUESTIONS = [
     hint: "Select any 2",
     max: 2,
     options: [
-      { label: "It leaks I’m scared", image: "assets/leaks.svg" },
-      { label: "Too much jhanjhat to pack it", image: "assets/jhanjhat.svg" },
-      { label: "Don’t want to", image: "assets/dont-want.svg" },
-      { label: "Doesn’t fit in my bag", image: "assets/bag.svg" }
+      { label: "It leaks I’m scared", image: "assets/leaks.webp" },
+      { label: "Too much jhanjhat to pack it", image: "assets/jhanjhat.webp" },
+      { label: "Don’t want to", image: "assets/dont-want.webp" },
+      { label: "Doesn’t fit in my bag", image: "assets/bag.webp" }
     ],
     required: true
   },

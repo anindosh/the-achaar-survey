@@ -39,6 +39,14 @@
     window.scrollTo({ top: 0 });
   }
 
+  // Fetch every question photo in the background once the home screen has loaded,
+  // so they're already cached when their question comes up.
+  window.addEventListener("load", () => {
+    QUESTIONS.forEach((q) => (q.options || []).forEach((o) => {
+      if (o.image) new Image().src = o.image;
+    }));
+  });
+
   $("#start-btn").addEventListener("click", () => {
     index = 0;
     show("survey");
@@ -214,8 +222,13 @@
       const img = document.createElement("img");
       img.src = o.image;
       img.alt = "";
+      img.decoding = "async";
       img.style.setProperty("--w", o.width);
-      btn.append(img, el("span", "pic__label", o.label));
+      const photo = el("span", "pic__photo");
+      const tick = el("span", "pic__tick", "✓");
+      tick.setAttribute("aria-hidden", "true");
+      photo.append(img, tick);
+      btn.append(photo, el("span", "pic__label", o.label));
       btn.addEventListener("click", () => {
         if (multi) {
           if (selected.includes(o.label)) selected = selected.filter((s) => s !== o.label);
@@ -228,7 +241,7 @@
           selected = o.label;
           body.querySelectorAll(".pic").forEach((b) => b.setAttribute("aria-pressed", "false"));
           btn.setAttribute("aria-pressed", "true");
-          setTimeout(() => card.requestSubmit(nextBtn), 150);
+          setTimeout(() => card.requestSubmit(nextBtn), 400); // long enough to see the tick
         }
       });
       body.append(btn);
@@ -275,7 +288,7 @@
           body.querySelectorAll(".opt").forEach((b) => b.setAttribute("aria-pressed", "false"));
           btn.setAttribute("aria-pressed", "true");
           // single choice: move on automatically for a snappier feel
-          setTimeout(() => card.requestSubmit(nextBtn), 150);
+          setTimeout(() => card.requestSubmit(nextBtn), 400); // long enough to see the tick
         }
       });
       body.append(btn);

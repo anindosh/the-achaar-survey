@@ -318,25 +318,9 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 }
 .pic[aria-pressed="true"] img { transform: scale(1.06); }
 .pic[aria-pressed="true"] .pic__label { font-weight: 700; }
-
-/* four photos: a 2 × 2 grid, captions left-aligned under each photo */
-.pics.is-grid {
-  display: grid;
-  grid-template-columns: repeat(2, calc(152 * var(--u)));
-  justify-content: center;
-  align-items: end;
-  gap: calc(16 * var(--u)) calc(18 * var(--u));
-}
-.is-grid .pic { position: relative; align-items: flex-start; }
-.is-grid .pic img { width: auto; height: calc(158 * var(--u)); max-width: 100%; object-fit: contain; object-position: left bottom; }
-.is-grid .pic__label { text-align: left; white-space: normal; min-height: 2.4em; line-height: 1.2; }
-/* no scaling here: scaling shows faint frame edges baked into these SVGs */
-.is-grid .pic img,
-.is-grid .pic:hover img,
-.is-grid .pic[aria-pressed="true"] img { transform: none; }
-/* picked: bold caption plus a small tick on the photo */
-.is-grid .pic::after {
-  content: "✓";
+/* picked: bold caption plus a small tick on the photo's top-left corner */
+.pic__photo { position: relative; display: block; line-height: 0; }
+.pic__tick {
   position: absolute;
   top: 0;
   left: 0;
@@ -349,11 +333,30 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   color: var(--red);
   font-size: calc(15 * var(--u));
   font-weight: 700;
+  line-height: 1;
   opacity: 0;
   transform: scale(.4);
   transition: opacity .15s, transform .2s cubic-bezier(.3, 1.6, .5, 1);
 }
-.is-grid .pic[aria-pressed="true"]::after { opacity: 1; transform: scale(1); }
+.pic[aria-pressed="true"] .pic__tick { opacity: 1; transform: scale(1); }
+
+/* four photos: a 2 × 2 grid, captions left-aligned under each photo */
+.pics.is-grid {
+  display: grid;
+  grid-template-columns: repeat(2, calc(152 * var(--u)));
+  justify-content: center;
+  align-items: end;
+  gap: calc(16 * var(--u)) calc(18 * var(--u));
+}
+.is-grid .pic { position: relative; align-items: flex-start; }
+.is-grid .pic__photo { max-width: 100%; }
+.is-grid .pic img { width: auto; height: calc(158 * var(--u)); max-width: 100%; object-fit: contain; object-position: left bottom; }
+.is-grid .pic__label { text-align: left; white-space: normal; min-height: 2.4em; line-height: 1.2; }
+/* no scaling here: scaling shows faint frame edges baked into these SVGs */
+.is-grid .pic img,
+.is-grid .pic:hover img,
+.is-grid .pic[aria-pressed="true"] img { transform: none; }
+
 
 .chips { flex-direction: row; flex-wrap: wrap; gap: 8px; }
 .chips .opt { width: auto; padding: 8px 13px; border: 1.5px solid rgba(255, 243, 194, .4); border-radius: 99px; }
