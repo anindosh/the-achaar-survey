@@ -16,7 +16,7 @@
   const $ = (sel) => document.querySelector(sel);
   const views = { home: $("#home"), survey: $("#survey"), done: $("#done") };
   const card = $("#card");
-  const dots = $("#dots");
+  const dots = el("div", "dots"); // lives between the back and next arrows
 
   let answers = loadDraft();
   let index = 0;
@@ -100,7 +100,7 @@
     nextBtn.type = "submit";
     nextBtn.innerHTML = ARROW_NEXT;
     nextBtn.setAttribute("aria-label", isLast ? "Send answers" : "Next question");
-    nav.append(backBtn, nextBtn);
+    nav.append(backBtn, dots, nextBtn);
     card.append(nav);
 
     const builders = { fields: buildFields, longtext: buildLongText, single: buildChoice, multi: buildChoice, chips: buildChoice, pictures: buildPictures, spice: buildSpice };
@@ -232,6 +232,7 @@
     const multi = q.type !== "single";
     if (q.type === "chips") body.classList.add("chips");
     if (q.options.length > 6) body.classList.add("is-long");
+    if (q.options.length === 2) body.classList.add("is-pair");
     body.setAttribute("role", "group");
     body.setAttribute("aria-labelledby", `q-${q.id}`);
 

@@ -50,12 +50,23 @@ window.SURVEY_QUESTIONS = [
       ["Packed lunchbox"],
       ["At canteen or cafeteria"],
       ["In hostel or PG"],
-      ["In restaurants (whenever they serve it)"],
+      ["In restaurants"],
       ["While travelling (trains, flights, road trips)"],
       ["Abroad (living or travelling outside India)"],
       ["Haven’t eaten it outside home"]
     ],
     exclusive: ["Haven’t eaten it outside home"],
+    required: true
+  },
+  {
+    id: "carried",
+    column: "Taken achaar out of the house",
+    type: "single",
+    title: "Have you ever taken achaar with you out of the house?",
+    options: [
+      ["Yes"],
+      ["No"]
+    ],
     required: true
   },
   {
