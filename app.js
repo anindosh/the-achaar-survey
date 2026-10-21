@@ -246,7 +246,8 @@
   function buildChoice(q, body, nextBtn) {
     const multi = q.type !== "single";
     if (q.type === "chips") body.classList.add("chips");
-    if (q.options.length > 6) body.classList.add("is-long");
+    if (q.options.length > 6 || q.layout === "tiles") body.classList.add("is-long");
+    if (q.options.length === 4) body.classList.add("is-four");
     if (q.options.length === 2) body.classList.add("is-pair");
     body.setAttribute("role", "group");
     body.setAttribute("aria-labelledby", `q-${q.id}`);

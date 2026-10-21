@@ -460,6 +460,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .q__body.is-long { grid-template-columns: repeat(3, 1fr); margin-inline: calc((var(--col) - 600 * var(--u)) / 2); }
   .is-long .opt,
   .is-long .opt:last-child:nth-child(odd) { grid-column: auto; min-height: calc(62 * var(--u)); }
+  .q__body.is-long.is-four { grid-template-columns: repeat(2, 1fr); margin-inline: calc((var(--col) - 420 * var(--u)) / 2); }
   /* landscape screens have room for all of them in one row */
   .pics { --pic-scale: 1.3; flex-wrap: nowrap; gap: calc(40 * var(--u)); margin: calc(42 * var(--u)) 0 0; }
   .pic, .pic:nth-child(3n) { flex: 0 0 auto; }

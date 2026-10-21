@@ -10,6 +10,7 @@
 //             for pictures: { label, image, width } — width is the image's width in mockup px
 //             (four pictures make a 2 × 2 grid where every photo is the same height instead)
 //   max       for multi / pictures: how many can be picked (pictures become multi-select)
+//   layout    "tiles" shows single / multi options as the big quiz-style tile grid (automatic past 6 options)
 //   exclusive for multi: options that can't be combined with others (picking one clears the rest)
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
@@ -85,6 +86,20 @@ window.SURVEY_QUESTIONS = [
     required: true
   },
   {
+    id: "source",
+    column: "Where their achaar comes from now",
+    type: "single",
+    layout: "tiles",
+    title: "Where does your achaar come from right now?",
+    options: [
+      ["Sent from family"],
+      ["Made at home"],
+      ["From a local shop"],
+      ["Store bought"]
+    ],
+    required: true
+  },
+  {
     id: "favourites",
     column: "Favourite achaars",
     type: "chips",
@@ -111,20 +126,6 @@ window.SURVEY_QUESTIONS = [
     title: "How much heat can you handle?",
     labels: ["Mild & sweet", "A little kick", "Proper spicy", "Mouth on fire", "Garam masala in human form"],
     faces: ["😊", "🙂", "😅", "🥵", "🔥"],
-    required: true
-  },
-  {
-    id: "source",
-    column: "Where they get achaar",
-    type: "single",
-    title: "Where does your achaar usually come from?",
-    options: [
-      ["Made at home by family", "🏡"],
-      ["I make it myself", "👩‍🍳"],
-      ["Local shop or market", "🛒"],
-      ["Big brands", "🏷️"],
-      ["Online", "📦"]
-    ],
     required: true
   },
   {
