@@ -390,6 +390,66 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .field__error { margin: 12px 0 0; font-size: calc(13 * var(--u)); color: #590E0E; } /* same size as .field, same red as the waiting arrow */
 .q__error { min-height: 1.3em; }
 .field__error { margin: 6px 0 0; }
+.line-field[hidden] { display: none; }
+
+/* opt-in checkbox on the last page */
+.check-field {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(12 * var(--u));
+  margin-top: calc(26 * var(--u));
+  cursor: pointer;
+}
+.check-field__box {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: calc(22 * var(--u));
+  height: calc(22 * var(--u));
+  margin: 2px 0 0;
+  border: 1.5px solid var(--cream);
+  border-radius: 5px 7px 5px 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: background .15s;
+}
+.check-field__box::after {
+  content: "✓";
+  color: var(--red);
+  font-size: calc(15 * var(--u));
+  font-weight: 700;
+  line-height: 1;
+  transform: scale(0);
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1);
+}
+.check-field__box:checked { background: var(--cream); }
+.check-field__box:checked::after { transform: scale(1); }
+.check-field__box:focus-visible { outline: 2px dashed var(--cream); outline-offset: 3px; }
+.check-field__label { font-size: calc(13 * var(--u)); line-height: 1.35; letter-spacing: -0.02em; color: var(--cream); }
+.check-field + .line-field { margin-top: calc(16 * var(--u)); }
+
+/* Submit button (last page) — disabled until name and email are in */
+.submit-btn {
+  align-self: center;
+  margin-top: calc(34 * var(--u));
+  min-width: calc(190 * var(--u));
+  padding: calc(13 * var(--u)) calc(34 * var(--u)) calc(12 * var(--u));
+  border: 0;
+  border-radius: 46% 54% 50% 50% / 60% 55% 45% 40%;
+  background: var(--cream);
+  color: var(--red);
+  font-size: calc(17 * var(--u));
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  transition: background .2s, color .2s, transform .2s cubic-bezier(.3, 1.6, .5, 1);
+}
+.submit-btn:hover:not(:disabled) { transform: scale(1.04) rotate(-1.5deg); }
+.submit-btn:active:not(:disabled) { transform: scale(.97); }
+.submit-btn:disabled { background: #590E0E; color: rgba(255, 243, 194, .45); cursor: default; }
+.submit-btn:focus-visible { outline: 2px dashed var(--cream); outline-offset: 5px; }
+.arrow--next.is-hidden { visibility: hidden; }
 .field__error:empty { display: none; }
 
 /* back / next arrows */
@@ -506,6 +566,8 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .spice__ends  { font-size: 17px; }
   .q__error,
   .field__error { font-size: calc(18 * var(--u)); }
+  .check-field__label { font-size: calc(18 * var(--u)); }
+  .submit-btn { font-size: calc(21 * var(--u)); }
   .reaction     { font-size: 27px; }
 }
 

@@ -111,11 +111,24 @@
     nav.append(backBtn, dots, nextBtn);
     card.append(nav);
 
+    // The last page sends everything with a proper Submit button instead of the next arrow.
+    let submitBtn = null;
+    if (isLast) {
+      nextBtn.classList.add("is-hidden");
+      nextBtn.tabIndex = -1;
+      submitBtn = el("button", "submit-btn", "Submit");
+      submitBtn.type = "submit";
+      card.insertBefore(submitBtn, nav);
+    }
+
     const builders = { fields: buildFields, longtext: buildLongText, single: buildChoice, multi: buildChoice, chips: buildChoice, pictures: buildPictures, spice: buildSpice };
     const api = (builders[q.type] || buildLongText)(q, body, nextBtn);
 
     // The next arrow stays dark until the question has what it needs.
-    const refresh = () => nextBtn.classList.toggle("is-waiting", !!api.missing());
+    const refresh = () => {
+      nextBtn.classList.toggle("is-waiting", !!api.missing());
+      if (submitBtn) submitBtn.disabled = !!api.missing();
+    };
     card.oninput = refresh;
     card.onclick = () => setTimeout(refresh);
     refresh();
@@ -139,23 +152,52 @@
   function buildFields(q, body) {
     const EMAIL = /^\S+@\S+\.\S+$/;
     const inputs = q.fields.map((f) => {
+      if (f.type === "checkbox") {
+        const wrap = el("label", "check-field");
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.className = "check-field__box";
+        input.checked = answers[f.id] === "Yes";
+        wrap.append(input, el("span", "check-field__label", f.label));
+        body.append(wrap);
+        return { f, input, error: null };
+      }
       const wrap = el("label", "line-field");
       const input = document.createElement("input");
-      input.type = f.type === "email" ? "email" : "text";
+      input.type = f.type === "email" ? "email" : f.type === "tel" ? "tel" : "text";
       input.className = "field";
       input.placeholder = f.placeholder || "";
       input.maxLength = 200;
       input.value = answers[f.id] || "";
       input.setAttribute("aria-label", (f.placeholder || f.column).replace(/\*$/, ""));
       if (f.type === "email") input.autocomplete = "email";
+      if (f.type === "tel") { input.autocomplete = "tel"; input.inputMode = "tel"; }
       if (f.id === "name") input.autocomplete = "given-name";
       wrap.append(input);
       const error = el("p", "field__error");
       error.setAttribute("role", "alert");
       body.append(wrap, error);
       input.addEventListener("input", () => { error.textContent = ""; });
-      return { f, input, error };
+      return { f, input, error, wrap };
     });
+
+    // Fields with `showIf` only appear while the named checkbox is ticked.
+    const byId = Object.fromEntries(inputs.map((i) => [i.f.id, i]));
+    const shown = (i) => !i.f.showIf || byId[i.f.showIf].input.checked;
+    const syncShown = () => inputs.forEach((i) => {
+      if (!i.f.showIf) return;
+      i.wrap.hidden = !shown(i);
+      if (!shown(i)) i.error.textContent = "";
+    });
+    inputs.forEach((i) => {
+      if (i.f.type !== "checkbox") return;
+      i.input.addEventListener("change", () => {
+        syncShown();
+        const dependent = inputs.find((d) => d.f.showIf === i.f.id);
+        if (i.input.checked && dependent) dependent.input.focus({ preventScroll: true });
+      });
+    });
+    syncShown();
     setTimeout(() => inputs[0] && inputs[0].input.focus({ preventScroll: true }), 350);
 
     // Each field reports its own problem, shown right under it.
@@ -163,21 +205,25 @@
       const v = input.value.trim();
       if (f.required && !v) return f.missing || "Please fill this in :(";
       if (f.type === "email" && v && !EMAIL.test(v)) return "That email ID doesn’t look right :(";
+      if (f.type === "tel" && v && v.replace(/\D/g, "").length < 7) return "That number doesn’t look right :(";
       return "";
     };
+    const visibleText = () => inputs.filter((i) => i.f.type !== "checkbox" && shown(i));
     return {
-      missing: () => (inputs.some(({ f, input }) => f.required && !input.value.trim()) ? "missing" : ""),
+      missing: () => (visibleText().some(({ f, input }) => f.required && !input.value.trim()) ? "missing" : ""),
       invalid: () => "",
       validate: () => {
         let ok = true;
-        inputs.forEach((i) => {
+        visibleText().forEach((i) => {
           i.error.textContent = problemWith(i);
           if (i.error.textContent && ok) { ok = false; i.input.focus({ preventScroll: true }); }
         });
         return ok;
       },
-      save: () => inputs.forEach(({ f, input }) => {
-        const v = input.value.trim();
+      save: () => inputs.forEach((i) => {
+        const { f, input } = i;
+        if (f.type === "checkbox") { answers[f.id] = input.checked ? "Yes" : "No"; return; }
+        const v = shown(i) ? input.value.trim() : "";
         if (v) answers[f.id] = v; else delete answers[f.id];
       })
     };
@@ -352,8 +398,8 @@
 
   async function submit() {
     submitting = true;
-    const nextBtn = card.querySelector(".arrow--next");
-    if (nextBtn) nextBtn.disabled = true;
+    const nextBtn = card.querySelector(".submit-btn") || card.querySelector(".arrow--next");
+    if (nextBtn) { nextBtn.disabled = true; if (nextBtn.classList.contains("submit-btn")) nextBtn.textContent = "Sending…"; }
     const payload = Object.assign(sheetRow(), { userAgent: navigator.userAgent });
 
     try {
@@ -368,7 +414,7 @@
     } catch (err) {
       console.error("Could not send answers:", err, payload);
       submitting = false;
-      if (nextBtn) nextBtn.disabled = false;
+      if (nextBtn) { nextBtn.disabled = false; if (nextBtn.classList.contains("submit-btn")) nextBtn.textContent = "Try again"; }
       const error = card.querySelector(".q__error");
       if (error) error.textContent = "Hmm, that didn’t go through. Check your connection and try again.";
       return;
