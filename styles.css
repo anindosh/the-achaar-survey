@@ -322,14 +322,14 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 /* four photos: a 2 × 2 grid, captions left-aligned under each photo */
 .pics.is-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, calc(152 * var(--u)));
+  justify-content: center;
   align-items: end;
-  gap: calc(28 * var(--u)) calc(12 * var(--u));
-  margin-inline: calc((var(--col) - 100vw) / 2 + 14px); /* nearly edge to edge so the photos can be big */
+  gap: calc(16 * var(--u)) calc(18 * var(--u));
 }
 .is-grid .pic { position: relative; align-items: flex-start; }
 .is-grid .pic img { width: auto; height: calc(158 * var(--u)); max-width: 100%; object-fit: contain; object-position: left bottom; }
-.is-grid .pic__label { text-align: left; white-space: normal; min-height: 2.4em; }
+.is-grid .pic__label { text-align: left; white-space: normal; min-height: 2.4em; line-height: 1.2; }
 /* no scaling here: scaling shows faint frame edges baked into these SVGs */
 .is-grid .pic img,
 .is-grid .pic:hover img,
