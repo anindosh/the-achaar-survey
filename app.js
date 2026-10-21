@@ -228,6 +228,7 @@
   function buildChoice(q, body, nextBtn) {
     const multi = q.type !== "single";
     if (q.type === "chips") body.classList.add("chips");
+    if (q.options.length > 6) body.classList.add("is-long");
     body.setAttribute("role", "group");
     body.setAttribute("aria-labelledby", `q-${q.id}`);
 
@@ -243,9 +244,11 @@
 
       btn.addEventListener("click", () => {
         if (multi) {
+          const exclusive = q.exclusive || [];
           if (selected.includes(label)) selected = selected.filter((s) => s !== label);
-          else if (q.max && selected.length >= q.max) { nudge(btn); return; }
-          else selected.push(label);
+          else if (exclusive.includes(label)) selected = [label];
+          else if (q.max && selected.filter((s) => !exclusive.includes(s)).length >= q.max) { nudge(btn); return; }
+          else selected = selected.filter((s) => !exclusive.includes(s)).concat(label);
           body.querySelectorAll(".opt").forEach((b, i) => b.setAttribute("aria-pressed", String(selected.includes(q.options[i][0]))));
         } else {
           selected = label;

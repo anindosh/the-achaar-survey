@@ -8,6 +8,7 @@
 //   missing   for a "fields" entry: the message shown under it when it is left empty
 //   options   for single / multi / chips: [label, emoji?] pairs
 //             for pictures: { label, image, width } — width is the image's width in mockup px
+//   exclusive for multi: options that can't be combined with others (picking one clears the rest)
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
   {
@@ -35,6 +36,26 @@ window.SURVEY_QUESTIONS = [
       { label: "Masala of the achaar", image: "assets/masala.svg", width: 170 },
       { label: "I need both", image: "assets/both.svg", width: 170 }
     ],
+    required: true
+  },
+  {
+    id: "where",
+    column: "Where they ate achaar (last 6 months)",
+    type: "multi",
+    title: "In the last 6 months, where have you eaten achaar?",
+    hint: "Select all that apply",
+    options: [
+      ["With home food"],
+      ["With ordered in food"],
+      ["Packed lunchbox"],
+      ["At canteen or cafeteria"],
+      ["In hostel or PG"],
+      ["In restaurants (whenever they serve it)"],
+      ["While travelling (trains, flights, road trips)"],
+      ["Abroad (living or travelling outside India)"],
+      ["Haven’t eaten it outside home"]
+    ],
+    exclusive: ["Haven’t eaten it outside home"],
     required: true
   },
   {
