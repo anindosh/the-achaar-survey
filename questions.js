@@ -16,22 +16,22 @@ window.SURVEY_QUESTIONS = [
     fields: [
       { id: "name", column: "Name", type: "text", placeholder: "Your name*", required: true, missing: "Please tell us your name :(" },
       { id: "email", column: "Email", type: "email", placeholder: "Your email ID*", required: true, missing: "Please tell us your email ID :(" }
-    ],
-    reaction: "Namaste!"
+    ]
   },
   {
     id: "frequency",
     column: "How often they eat achaar",
     type: "single",
-    title: "How often does achaar make it to your plate?",
+    title: "How often do you eat achaar?",
     options: [
-      ["Every single meal", "🍛"],
-      ["Most days", "🥄"],
-      ["A few times a week", "🗓️"],
-      ["Only when Nani visits", "👵"]
+      ["Almost everyday"],
+      ["Few times a week"],
+      ["Weekly"],
+      ["Only when my food tastes meh"],
+      ["On special occasions"],
+      ["Never :("]
     ],
-    required: true,
-    reaction: "Respect."
+    required: true
   },
   {
     id: "favourites",
