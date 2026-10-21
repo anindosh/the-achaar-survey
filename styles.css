@@ -180,7 +180,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .q__hint {
   margin: 6px 0 0;
-  font-size: 13px;
+  font-size: 12px;
   font-style: italic;
   color: rgba(255, 243, 194, .7);
 }
@@ -208,7 +208,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   outline: none;
   border-radius: 0;
 }
-.field::placeholder { color: rgba(255, 243, 194, .55); font-style: italic; }
+.field::placeholder { color: rgba(255, 243, 194, .55); font-style: italic; font-size: calc(11 * var(--u)); }
 textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 
 /* choice options: text sits inside the hand-drawn outline from assets/option.svg */
@@ -375,7 +375,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .spice__ends { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: rgba(255, 243, 194, .7); }
 
 .q__error,
-.field__error { margin: 12px 0 0; font-size: calc(13 * var(--u)); color: #590E0E; } /* same size as .field, same red as the waiting arrow */
+.field__error { margin: 12px 0 0; font-size: calc(11 * var(--u)); color: #590E0E; } /* same size as the placeholders, same red as the waiting arrow */
 .q__error { min-height: 1.3em; }
 .field__error { margin: 6px 0 0; }
 .line-field[hidden] { display: none; }
@@ -572,15 +572,16 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   /* the bigger type needs a wider column than the 218px one in the mockup */
   .view--survey { --col: calc(330 * var(--u)); }
   .q__title     { font-size: calc(23 * var(--u)); }
-  .q__hint      { font-size: 18px; }
+  .q__hint      { font-size: 15px; }
   .field        { font-size: calc(18 * var(--u)); }
+  .field::placeholder { font-size: calc(15 * var(--u)); }
   .opt          { font-size: calc(18 * var(--u)); } /* same as the picture captions */
   .pic__label   { font-size: calc(18 * var(--u)); }
   .opt__emoji   { font-size: 23px; }
   .spice__label { font-size: 21px; }
   .spice__ends  { font-size: 17px; }
   .q__error,
-  .field__error { font-size: calc(18 * var(--u)); }
+  .field__error { font-size: calc(15 * var(--u)); }
   .check-field__label { font-size: calc(18 * var(--u)); }
   .reaction     { font-size: 27px; }
 }
