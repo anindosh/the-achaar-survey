@@ -87,6 +87,20 @@ window.SURVEY_QUESTIONS = [
     required: true
   },
   {
+    id: "annoys",
+    column: "What annoys them about achaar at home",
+    type: "single",
+    title: "What annoys you about achaar at home?",
+    options: [
+      ["Oily jar"],
+      ["Sticky lid"],
+      ["Goes bad easily"],
+      ["Too big to finish"],
+      ["Nothing"]
+    ],
+    required: true
+  },
+  {
     id: "source",
     column: "Where most of their achaar comes from",
     type: "single",
