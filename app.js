@@ -63,6 +63,9 @@
       d.innerHTML = DOT;
       dots.append(d);
     });
+    const count = el("span", "dots__count", `${index + 1} of ${QUESTIONS.length}`);
+    count.setAttribute("aria-hidden", "true");
+    dots.append(count);
     dots.setAttribute("aria-label", `Question ${index + 1} of ${QUESTIONS.length}`);
   }
 

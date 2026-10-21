@@ -230,7 +230,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: calc(9 * var(--u)) calc(14 * var(--u));
+  padding: calc(15 * var(--u)) calc(18 * var(--u));
   border: 0;
   background: none;
   color: var(--cream);
@@ -257,8 +257,20 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .opt[aria-pressed="true"] { color: var(--red); }
 .opt[aria-pressed="true"] .opt__shape path { fill: var(--cream); }
 /* long lists: tighter rows so they still fit on one screen */
-.q__body.is-long { gap: 7px; }
-.is-long .opt { padding-block: calc(6 * var(--u)); }
+/* long lists become a quiz-style grid of big tiles running almost edge to edge */
+.q__body.is-long {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-inline: calc((var(--col) - 100vw) / 2 + 14px);
+}
+.is-long .opt {
+  min-height: calc(96 * var(--u));
+  padding: calc(16 * var(--u)) calc(14 * var(--u));
+  justify-content: center;
+  text-align: center;
+}
+.is-long .opt:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: calc(64 * var(--u)); }
 
 /* picture choices (e.g. "Which do you prefer?") */
 .q--pictures .q__title { text-align: center; }
@@ -374,6 +386,13 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 /* every dot is the same hand-drawn blob (assets/dot.svg); only the colour changes */
 .dot { display: block; width: calc(10 * var(--u)); color: #590E0E; transition: color .3s; }
 .dot svg { display: block; width: 100%; height: auto; }
+.dots__count {
+  margin-left: calc(8 * var(--u));
+  font-size: calc(12 * var(--u));
+  letter-spacing: -0.01em;
+  color: rgba(255, 243, 194, .7);
+  white-space: nowrap;
+}
 .dot.is-done    { color: #E9A98F; }
 .dot.is-current { color: var(--cream); }
 
@@ -399,6 +418,9 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 @media (min-width: 900px) and (min-aspect-ratio: 1/1) {
   .view--survey { --u: min(100svh / 600, 100vw / 900); }
   .survey__card::before { flex-basis: calc(108 * var(--u)); }
+  .q__body.is-long { grid-template-columns: repeat(3, 1fr); margin-inline: calc((var(--col) - 600 * var(--u)) / 2); }
+  .is-long .opt,
+  .is-long .opt:last-child:nth-child(odd) { grid-column: auto; min-height: calc(62 * var(--u)); }
   /* landscape screens have room for all of them in one row */
   .pics { --pic-scale: 1.3; flex-wrap: nowrap; gap: calc(40 * var(--u)); margin: calc(42 * var(--u)) 0 0; }
   .pic, .pic:nth-child(3n) { flex: 0 0 auto; }
