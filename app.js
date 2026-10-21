@@ -210,6 +210,7 @@
     q.options.forEach((o) => {
       const btn = el("button", "pic");
       btn.type = "button";
+      if (q.options.length === 4) btn.innerHTML = OPTION_SHAPE; // grid photos sit in the hand-drawn box
       btn.setAttribute("aria-pressed", String(isOn(o.label)));
       const img = document.createElement("img");
       img.src = o.image;
@@ -222,6 +223,8 @@
           else if (selected.length >= q.max) { nudge(btn); return; }
           else selected.push(o.label);
           body.querySelectorAll(".pic").forEach((b, i) => b.setAttribute("aria-pressed", String(isOn(q.options[i].label))));
+          // once the limit is reached there's nothing more to choose, so move on
+          if (selected.length === q.max) setTimeout(() => card.requestSubmit(nextBtn), 250);
         } else {
           selected = o.label;
           body.querySelectorAll(".pic").forEach((b) => b.setAttribute("aria-pressed", "false"));

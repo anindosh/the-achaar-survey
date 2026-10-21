@@ -323,37 +323,28 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .pics.is-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: end;
-  gap: calc(34 * var(--u)) calc(16 * var(--u));
-  margin-inline: 0;
+  align-items: stretch;
+  gap: calc(12 * var(--u));
+  margin-inline: calc((var(--col) - 100vw) / 2 + 14px); /* edge to edge, like the tile grid */
 }
-.is-grid .pic { align-items: flex-start; position: relative; }
-.is-grid .pic img { width: auto; height: calc(135 * var(--u)); max-width: 100%; object-fit: contain; object-position: left bottom; }
+/* each photo + caption sits inside the hand-drawn box; picking one fills the box */
+.is-grid .pic {
+  position: relative;
+  align-items: flex-start;
+  height: 100%;
+  padding: calc(14 * var(--u)) calc(14 * var(--u)) calc(12 * var(--u));
+}
+.is-grid .pic > :not(.opt__shape) { position: relative; }
+.is-grid .pic img { width: auto; height: calc(110 * var(--u)); max-width: 100%; object-fit: contain; object-position: left bottom; }
 .is-grid .pic__label { text-align: left; white-space: normal; min-height: 2.4em; }
-/* no scaling here: the tick marks the pick, and scaling shows faint frame edges baked into these SVGs */
+.is-grid .pic[aria-pressed="true"] { color: var(--red); }
+.is-grid .pic[aria-pressed="true"] .pic__label { font-weight: 400; }
+.is-grid .pic[aria-pressed="true"] .opt__shape path { fill: var(--cream); }
+.is-grid .pic:hover .opt__shape path { stroke-width: 1.6; }
+/* no scaling here: scaling shows faint frame edges baked into these SVGs */
 .is-grid .pic img,
 .is-grid .pic:hover img,
 .is-grid .pic[aria-pressed="true"] img { transform: none; }
-/* tick on picked photos (several can be picked) */
-.is-grid .pic::after {
-  content: "✓";
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: grid;
-  place-items: center;
-  width: calc(26 * var(--u));
-  height: calc(26 * var(--u));
-  border-radius: 50%;
-  background: var(--cream);
-  color: var(--red);
-  font-size: calc(15 * var(--u));
-  font-weight: 700;
-  opacity: 0;
-  transform: scale(.4);
-  transition: opacity .15s, transform .2s cubic-bezier(.3, 1.6, .5, 1);
-}
-.is-grid .pic[aria-pressed="true"]::after { opacity: 1; transform: scale(1); }
 
 .chips { flex-direction: row; flex-wrap: wrap; gap: 8px; }
 .chips .opt { width: auto; padding: 8px 13px; border: 1.5px solid rgba(255, 243, 194, .4); border-radius: 99px; }
