@@ -122,21 +122,19 @@ window.SURVEY_QUESTIONS = [
   },
   {
     id: "matters",
-    column: "What matters most",
+    column: "What matters most when buying achaar",
     type: "multi",
-    title: "What matters most in a jar of achaar?",
-    hint: "Pick up to three.",
+    title: "What matters most when you buy achaar?",
+    hint: "Select up to 3",
     max: 3,
     options: [
-      ["Tastes like home", "🏠"],
-      ["Less oil", "💧"],
-      ["No preservatives", "🌱"],
-      ["Regional recipes", "🗺️"],
-      ["Pretty packaging", "🎀"],
-      ["Price", "💸"]
+      ["Tastes like home"],
+      ["Less oil"],
+      ["No preservatives"],
+      ["Convenient packaging"],
+      ["Price"]
     ],
-    required: true,
-    reaction: "Noted!"
+    required: true
   },
   {
     id: "price",
