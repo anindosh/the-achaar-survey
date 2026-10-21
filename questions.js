@@ -93,11 +93,8 @@ window.SURVEY_QUESTIONS = [
   {
     id: "annoys",
     column: "What annoys them while eating achaar at home",
-    type: "multi",
+    type: "single",
     title: "What annoys you while eating achaar at home?",
-    hint: "Select any 2",
-    max: 2,
-    exclusive: ["Nothing really bothers me"],
     other: "Other",
     otherPlaceholder: "What annoys you?",
     otherMissing: "Please tell us what annoys you :(",
