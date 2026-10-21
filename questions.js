@@ -10,7 +10,8 @@
 //             for pictures: { label, image, width } — width is the image's width in mockup px
 //             (four pictures make a 2 × 2 grid where every photo is the same height instead)
 //   max       for multi / pictures: how many can be picked (pictures become multi-select)
-//   layout    "tiles" shows single / multi options as the big quiz-style tile grid (automatic past 6 options)
+//   layout    "tiles" shows single / multi options as the big quiz-style tile grid (automatic past 6 options);
+//             "stack" keeps them in one column however many there are
 //   exclusive for multi: options that can't be combined with others (picking one clears the rest)
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
@@ -89,12 +90,16 @@ window.SURVEY_QUESTIONS = [
     id: "source",
     column: "Where most of their achaar comes from",
     type: "single",
+    layout: "stack",
     title: "Where does most of your achaar come from?",
     options: [
-      ["Sent from family"],
       ["Made at home"],
-      ["From a local shop"],
-      ["Store bought"]
+      ["Sent by family or friends"],
+      ["From a local shop/home-seller"],
+      ["From a supermarket"],
+      ["Online"],
+      ["Quick delivery apps (Blinkit, etc.)"],
+      ["Mix of all"]
     ],
     required: true
   },
