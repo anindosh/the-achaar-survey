@@ -197,36 +197,49 @@
   }
 
   // Two (or more) photos side by side with a caption; tapping one answers and moves on.
+  // Photos with a caption. Single choice answers and moves on; with `max`, several can be picked.
   function buildPictures(q, body, nextBtn) {
+    const multi = !!q.max;
     body.classList.add("pics");
+    if (q.options.length === 4) { body.classList.add("is-grid"); card.classList.add("q--pic-grid"); }
     body.setAttribute("role", "group");
     body.setAttribute("aria-labelledby", `q-${q.id}`);
-    let selected = answers[q.id];
+    let selected = multi ? [].concat(answers[q.id] || []) : answers[q.id];
+    const isOn = (label) => (multi ? selected.includes(label) : selected === label);
 
     q.options.forEach((o) => {
       const btn = el("button", "pic");
       btn.type = "button";
-      btn.setAttribute("aria-pressed", String(selected === o.label));
+      btn.setAttribute("aria-pressed", String(isOn(o.label)));
       const img = document.createElement("img");
       img.src = o.image;
       img.alt = "";
       img.style.setProperty("--w", o.width);
       btn.append(img, el("span", "pic__label", o.label));
       btn.addEventListener("click", () => {
-        selected = o.label;
-        body.querySelectorAll(".pic").forEach((b) => b.setAttribute("aria-pressed", "false"));
-        btn.setAttribute("aria-pressed", "true");
-        setTimeout(() => card.requestSubmit(nextBtn), 150);
+        if (multi) {
+          if (selected.includes(o.label)) selected = selected.filter((s) => s !== o.label);
+          else if (selected.length >= q.max) { nudge(btn); return; }
+          else selected.push(o.label);
+          body.querySelectorAll(".pic").forEach((b, i) => b.setAttribute("aria-pressed", String(isOn(q.options[i].label))));
+        } else {
+          selected = o.label;
+          body.querySelectorAll(".pic").forEach((b) => b.setAttribute("aria-pressed", "false"));
+          btn.setAttribute("aria-pressed", "true");
+          setTimeout(() => card.requestSubmit(nextBtn), 150);
+        }
       });
       body.append(btn);
     });
 
+    const empty = () => (multi ? selected.length === 0 : !selected);
     return {
-      missing: () => (q.required && !selected ? "Arre, pick one first!" : ""),
+      missing: () => (q.required && empty() ? "Arre, pick one first!" : ""),
       invalid: () => "",
-      save: () => { if (selected) answers[q.id] = selected; else delete answers[q.id]; }
+      save: () => { if (empty()) delete answers[q.id]; else answers[q.id] = selected; }
     };
   }
+
 
   function buildChoice(q, body, nextBtn) {
     const multi = q.type !== "single";

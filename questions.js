@@ -8,6 +8,8 @@
 //   missing   for a "fields" entry: the message shown under it when it is left empty
 //   options   for single / multi / chips: [label, emoji?] pairs
 //             for pictures: { label, image, width } — width is the image's width in mockup px
+//             (four pictures make a 2 × 2 grid where every photo is the same height instead)
+//   max       for multi / pictures: how many can be picked (pictures become multi-select)
 //   exclusive for multi: options that can't be combined with others (picking one clears the rest)
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
@@ -64,6 +66,21 @@ window.SURVEY_QUESTIONS = [
     options: [
       ["Yes"],
       ["No"]
+    ],
+    required: true
+  },
+  {
+    id: "stops",
+    column: "What stops them taking achaar to work",
+    type: "pictures",
+    title: "When you think of taking your favourite achaar to work, what stops you?",
+    hint: "Select any 2",
+    max: 2,
+    options: [
+      { label: "It leaks I’m scared", image: "assets/leaks.svg" },
+      { label: "Too much jhanjhat to pack it", image: "assets/jhanjhat.svg" },
+      { label: "Don’t want to", image: "assets/dont-want.svg" },
+      { label: "Doesn’t fit in my bag", image: "assets/bag.svg" }
     ],
     required: true
   },
