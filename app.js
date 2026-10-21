@@ -137,6 +137,7 @@
     // The next arrow stays dark until the question has what it needs.
     const refresh = () => {
       nextBtn.classList.toggle("is-waiting", !!api.missing());
+      if (!api.missing()) error.textContent = ""; // clear "please answer" once it's answered
       if (submitBtn) submitBtn.disabled = !!api.missing();
     };
     card.oninput = refresh;
@@ -321,7 +322,19 @@
     body.setAttribute("role", "group");
     body.setAttribute("aria-labelledby", `q-${q.id}`);
 
+    // An "other" option (q.other names it) reveals a text field; it's saved as "Other: <their words>".
+    const otherPrefix = q.other ? `${q.other}: ` : null;
+    let otherText = "";
     let selected = multi ? [].concat(answers[q.id] || []) : answers[q.id];
+    if (otherPrefix) {
+      const saved = [].concat(selected || []).find((v) => v.startsWith(otherPrefix));
+      if (saved) {
+        otherText = saved.slice(otherPrefix.length);
+        selected = multi ? selected.map((v) => (v === saved ? q.other : v)) : q.other;
+      }
+    }
+    const isOn = (label) => (multi ? selected.includes(label) : selected === label);
+    const otherOn = () => !!q.other && isOn(q.other);
 
     q.options.forEach(([label, emoji]) => {
       const btn = el("button", "opt");
@@ -329,7 +342,7 @@
       if (q.type !== "chips") btn.innerHTML = OPTION_SHAPE;
       if (emoji) btn.append(el("span", "opt__emoji", emoji));
       btn.append(el("span", "opt__label", label));
-      btn.setAttribute("aria-pressed", String(multi ? selected.includes(label) : selected === label));
+      btn.setAttribute("aria-pressed", String(isOn(label)));
 
       btn.addEventListener("click", () => {
         if (multi) {
@@ -338,28 +351,53 @@
           else if (exclusive.includes(label)) selected = [label];
           else if (q.max && selected.filter((s) => !exclusive.includes(s)).length >= q.max) { nudge(btn); return; }
           else selected = selected.filter((s) => !exclusive.includes(s)).concat(label);
-          body.querySelectorAll(".opt").forEach((b, i) => b.setAttribute("aria-pressed", String(selected.includes(q.options[i][0]))));
-          // nothing more to choose once the limit is hit or a stand-alone answer (e.g. "Nothing") is picked
-          const done = (q.max && selected.length === q.max) || (selected.length === 1 && exclusive.includes(selected[0]));
-          if (done) setTimeout(() => card.requestSubmit(nextBtn), 300);
         } else {
           selected = label;
-          body.querySelectorAll(".opt").forEach((b) => b.setAttribute("aria-pressed", "false"));
-          btn.setAttribute("aria-pressed", "true");
-          // single choice: move on automatically for a snappier feel
-          setTimeout(() => card.requestSubmit(nextBtn), 400); // long enough to see the tick
         }
+        body.querySelectorAll(".opt").forEach((b, i) => b.setAttribute("aria-pressed", String(isOn(q.options[i][0]))));
+        syncOther();
+        if (otherOn()) { otherInput.focus({ preventScroll: true }); return; } // wait for them to type
+        // move on once there's nothing more to choose: a single answer, the limit, or a stand-alone answer like "Nothing"
+        const exclusive = q.exclusive || [];
+        const done = !multi || (q.max && selected.length === q.max) || (selected.length === 1 && exclusive.includes(selected[0]));
+        if (done) setTimeout(() => card.requestSubmit(nextBtn), multi ? 300 : 400);
       });
       body.append(btn);
     });
 
+    let otherWrap = null;
+    let otherInput = null;
+    if (q.other) {
+      otherWrap = el("label", "line-field other-field");
+      otherInput = document.createElement("input");
+      otherInput.type = "text";
+      otherInput.className = "field";
+      otherInput.maxLength = 300;
+      otherInput.placeholder = q.otherPlaceholder || "Tell us more";
+      otherInput.value = otherText;
+      otherInput.setAttribute("aria-label", q.otherPlaceholder || "Other");
+      otherWrap.append(otherInput);
+      body.append(otherWrap);
+    }
+    function syncOther() { if (otherWrap) otherWrap.hidden = !otherOn(); }
+    syncOther();
+
     const empty = () => (multi ? selected.length === 0 : !selected);
     return {
-      missing: () => (q.required && empty() ? "Arre, pick one first!" : ""),
+      missing: () => {
+        if (q.required && empty()) return "Arre, pick one first!";
+        if (otherOn() && !otherInput.value.trim()) return q.otherMissing || "Please tell us a little more :(";
+        return "";
+      },
       invalid: () => "",
-      save: () => { if (empty()) delete answers[q.id]; else answers[q.id] = selected; }
+      save: () => {
+        if (empty()) { delete answers[q.id]; return; }
+        const withText = (v) => (v === q.other ? `${otherPrefix}${otherInput.value.trim()}` : v);
+        answers[q.id] = multi ? selected.map(withText) : withText(selected);
+      }
     };
   }
+
 
   function buildSpice(q, body) {
     const wrap = el("div", "spice");

@@ -273,7 +273,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: flex-end;
-  gap: calc(22 * var(--u)) 0;
+  gap: calc(40 * var(--u)) 0; /* space-evenly spreads the photos across each row */
   margin: calc(42 * var(--u)) calc(-20 * var(--u)) 0; /* a little wider than the text column so the captions fit */
 }
 .pic:nth-child(3n) { flex-basis: 100%; }
@@ -379,6 +379,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .q__error { min-height: 1.3em; }
 .field__error { margin: 6px 0 0; }
 .line-field[hidden] { display: none; }
+.other-field { margin-top: 4px; }
 
 /* opt-in checkbox on the last page */
 .check-field {

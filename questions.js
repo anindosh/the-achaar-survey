@@ -15,6 +15,8 @@
 //   layout    "tiles" shows single / multi options as the big quiz-style tile grid (automatic past 6 options);
 //             "stack" keeps them in one column however many there are
 //   exclusive for multi: options that can't be combined with others (picking one clears the rest)
+//   other     the option label (e.g. "Other") that reveals a text field; saved as "Other: <their words>"
+//             (otherPlaceholder / otherMissing set the field's placeholder and empty-field message)
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
   {
@@ -90,18 +92,21 @@ window.SURVEY_QUESTIONS = [
   },
   {
     id: "annoys",
-    column: "What annoys them about achaar at home",
+    column: "What annoys them while eating achaar at home",
     type: "multi",
-    title: "What annoys you about achaar at home?",
+    title: "What annoys you while eating achaar at home?",
     hint: "Select any 2",
     max: 2,
-    exclusive: ["Nothing"],
+    exclusive: ["Nothing really bothers me"],
+    other: "Other",
+    otherPlaceholder: "What annoys you?",
+    otherMissing: "Please tell us what annoys you :(",
     options: [
-      ["Oily jar"],
-      ["Sticky lid"],
-      ["Goes bad easily"],
-      ["Too big to finish"],
-      ["Nothing"]
+      ["Oil gets on the jar, lid and shelf"],
+      ["It gets spoilt easily"],
+      ["The jar is too big"],
+      ["Nothing really bothers me"],
+      ["Other"]
     ],
     required: true
   },
@@ -117,18 +122,15 @@ window.SURVEY_QUESTIONS = [
       ["From a local shop/home-seller"],
       ["From a supermarket"],
       ["Online"],
-      ["Quick delivery apps (Blinkit, etc.)"],
-      ["Mix of all"]
+      ["Quick delivery apps (Blinkit, etc.)"]
     ],
     required: true
   },
   {
     id: "matters",
     column: "What matters most when buying achaar",
-    type: "multi",
+    type: "single",
     title: "What matters most when you buy achaar?",
-    hint: "Select up to 3",
-    max: 3,
     options: [
       ["Tastes like home"],
       ["Less oil"],
