@@ -113,6 +113,7 @@ window.SURVEY_QUESTIONS = [
     column: "What stops them taking achaar to work",
     type: "pictures",
     title: "When you think of taking your favourite achaar to work, what stops you?",
+    hint: "Select all that apply",
     multi: true,
     exclusive: ["I don’t really want to"],
     options: [

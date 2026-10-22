@@ -334,7 +334,8 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   grid-template-columns: repeat(2, calc(172 * var(--u)));
   justify-content: center;
   align-items: end;
-  gap: calc(16 * var(--u)) calc(18 * var(--u));
+  gap: calc(10 * var(--u)) calc(18 * var(--u));
+  margin-top: calc(24 * var(--u));
   margin-inline: calc((var(--col) - 362 * var(--u)) / 2); /* a little wider than the text column to fit the big photos */
 }
 .is-grid .pic { position: relative; align-items: flex-start; }
