@@ -123,16 +123,34 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 /* ---------- laptop / desktop: spread the collage across a landscape screen ---------- */
+.deco--desk { display: none; }
+
+/* ---------- laptop / desktop homepage, from the 1440 × 1024 mockup ----------
+   --v is one mockup pixel. Things touching an edge are pinned to that edge; the rest are
+   placed from the centre so the collage stays balanced on other screen shapes. */
 @media (min-width: 900px) and (min-aspect-ratio: 1/1) {
-  .view--home { --u: min(100svh / 560, 100vw / 900); }
+  .view--home { --v: min(100vw / 1440, 100svh / 1024); }
 
-  .home__content { top: 50%; transform: translateY(-50%); }
-  .home__sub { font-size: calc(14 * var(--u)); }
+  .view--home .deco--desk { display: block; }
+  .view--home .deco--jar,
+  .view--home .deco--nani { display: none; }
 
-  /* every photo is cut flat on the side(s) that bleed off the screen, so they stay flush with those edges */
-  .deco--note { top: 14%; width: calc(274 * var(--u)); }
-  .deco--bowl { top: calc(80 * var(--u)); left: auto; right: calc(-30 * var(--u)); } /* tucked under the chillies on the right */
-  .deco--jar  { top: 33%; }
+  .deco--nimbu    { top: 0; left: calc(50% - 54 * var(--v)); width: calc(125 * var(--v)); }
+  .deco--chillies { top: calc(24 * var(--v)); right: 0; width: calc(128 * var(--v)); }
+  .deco--bowl     { top: calc(-42 * var(--v)); left: calc(44 * var(--v)); right: auto; width: calc(208 * var(--v)); }
+  .deco--jar-desk { top: calc(128 * var(--v)); right: calc(193 * var(--v)); width: calc(200 * var(--v)); }
+  .deco--note     { top: calc(50% - 240 * var(--v)); left: calc(60 * var(--v)); width: calc(296 * var(--v)); }
+  .deco--pieces   { top: calc(50% - 35 * var(--v)); left: calc(165 * var(--v)); width: calc(82 * var(--v)); transform: rotate(8deg); }
+  .deco--tabasco  { bottom: calc(156 * var(--v)); left: calc(301 * var(--v)); width: calc(100 * var(--v)); }
+  .deco--maa-desk { bottom: calc(-172 * var(--v)); left: calc(-145 * var(--v)); width: calc(518 * var(--v)); }
+  .deco--guy      { bottom: 0; left: calc(50% + 127 * var(--v)); width: calc(232 * var(--v)); }
+  .deco--tomatoes { bottom: 0; right: 0; width: calc(167 * var(--v)); }
+
+  .home__content { top: calc(50% - 96 * var(--v)); left: calc(16 * var(--v)); transform: none; } /* centred 8px right of middle, as in the mockup */
+  .home__title img { width: calc(320 * var(--v)); }
+  .home__sub { margin-top: calc(14 * var(--v)); font-size: calc(18.8 * var(--v)); text-align: center; }
+  .home__sub br { display: none; }
+  .start-btn { margin-top: calc(42 * var(--v)); width: calc(232 * var(--v)); }
 }
 
 /* ---------- survey ----------
