@@ -258,6 +258,11 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 }
 .opt__shape path { fill: transparent; stroke: var(--cream); stroke-width: 1; transition: fill .15s; }
 .opt:hover .opt__shape path { stroke-width: 1.6; }
+/* a faint cream wash on hover (mouse/trackpad only, so it never sticks on phones) */
+@media (hover: hover) {
+  .opt:not([aria-pressed="true"]):hover .opt__shape path { fill: rgba(255, 243, 194, .1); }
+  .chips .opt:not([aria-pressed="true"]):hover { background: rgba(255, 243, 194, .1); }
+}
 .opt:active { transform: scale(.98); }
 .opt:focus-visible { outline: 2px dashed var(--cream); outline-offset: 4px; }
 .opt__emoji { font-size: 18px; line-height: 1; }
@@ -497,7 +502,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   padding: 0;
   border: 0;
   background: none;
-  width: calc(161 * var(--u));
+  width: calc(136 * var(--u));
   visibility: hidden;
   opacity: 0;
   transform: translateY(8px) scale(.9);
