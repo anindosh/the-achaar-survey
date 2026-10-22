@@ -6,7 +6,8 @@
 //             ("fields" puts several underlined inputs on one screen, each with its own column)
 //   required  true to make it mandatory (the next arrow stays dark until it's answered)
 //   missing   for a "fields" entry: the message shown under it when it is left empty
-//             a "fields" entry can also be type "checkbox" (saved as Yes / No) or "tel", and
+//             a "fields" entry can also be type "checkbox" (saved as Yes / No), "tel", or "choice"
+//             (a row of pills from its `options`), and
 //             showIf: "<checkbox id>" only shows it while that box is ticked
 //   options   for single / multi / chips: [label, emoji?] pairs
 //             for pictures: { label, image, width } — width is the image's width in mockup px
@@ -172,6 +173,7 @@ window.SURVEY_QUESTIONS = [
     fields: [
       { id: "name", column: "Name", type: "text", placeholder: "Your name*", required: true, missing: "Please tell us your name :(" },
       { id: "email", column: "Email", type: "email", placeholder: "Your email ID*", required: true, missing: "Please tell us your email ID :(" },
+      { id: "age", column: "Age group", type: "choice", label: "Your age*", options: ["18–25", "26–40", "40+"], required: true, missing: "Please pick your age group :(" },
       { id: "feedback", column: "Open to giving feedback", type: "checkbox", label: "We’re building something, and need your help. Would you be open to provide feedback on early versions?" },
       { id: "phone", column: "Phone", type: "tel", placeholder: "Your phone number", showIf: "feedback" }
     ]

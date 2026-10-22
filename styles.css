@@ -426,6 +426,24 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 }
 .field__error { margin: 6px 0 0; }
 .line-field[hidden] { display: none; }
+
+/* age-group pills on the last page */
+.pill-field { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: calc(14 * var(--u)); }
+.pill-field__label { font-size: calc(13 * var(--u)); font-style: italic; color: rgba(255, 243, 194, .55); white-space: nowrap; }
+.pill-field__row { display: flex; gap: 8px; }
+.pill {
+  padding: calc(6 * var(--u)) calc(12 * var(--u));
+  border: 1.5px solid rgba(255, 243, 194, .5);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--cream);
+  font-size: calc(13 * var(--u));
+  line-height: 1.1;
+  transition: background .15s, color .15s, border-color .15s;
+}
+@media (hover: hover) { .pill:not([aria-pressed="true"]):hover { background: rgba(255, 243, 194, .1); } }
+.pill[aria-pressed="true"] { background: var(--cream); border-color: var(--cream); color: var(--red); }
+.pill:focus-visible { outline: 2px dashed var(--cream); outline-offset: 3px; }
 .other-field { margin-top: 4px; }
 
 /* opt-in checkbox on the last page */
@@ -604,6 +622,8 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .q__title { font-size: 20px; }
   .q__hint { font-size: 13px; }
   .opt, .pic__label, .field, .check-field__label { font-size: 16px; }
+  .pill-field__label { font-size: 13px; }
+  .pill { font-size: 15px; padding: 6px 14px; }
   .field::placeholder, .q__error, .field__error { font-size: 13px; }
   .q__body { margin-top: 24px; }
 
@@ -692,6 +712,8 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .q__error,
   .field__error { font-size: calc(15 * var(--u)); }
   .check-field__label { font-size: calc(18 * var(--u)); }
+  .pill-field__label { font-size: calc(15 * var(--u)); }
+  .pill { font-size: calc(16 * var(--u)); }
   .reaction     { font-size: 27px; }
 }
 

@@ -198,6 +198,30 @@
         body.append(wrap);
         return { f, input, error: null };
       }
+      if (f.type === "choice") {
+        // a row of small pills (e.g. age group); `input` mimics a text input so the checks below work unchanged
+        const wrap = el("div", "pill-field");
+        wrap.setAttribute("role", "group");
+        wrap.setAttribute("aria-label", f.label);
+        const row = el("div", "pill-field__row");
+        const input = { value: answers[f.id] || "", focus: (o) => row.firstChild.focus(o) };
+        const error = el("p", "field__error");
+        error.setAttribute("role", "alert");
+        f.options.forEach((label) => {
+          const b = el("button", "pill", label);
+          b.type = "button";
+          b.setAttribute("aria-pressed", String(input.value === label));
+          b.addEventListener("click", () => {
+            input.value = label;
+            row.querySelectorAll(".pill").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+            error.textContent = "";
+          });
+          row.append(b);
+        });
+        wrap.append(el("span", "pill-field__label", f.label), row);
+        body.append(wrap, error);
+        return { f, input, error, wrap };
+      }
       const wrap = el("label", "line-field");
       const input = document.createElement("input");
       input.type = f.type === "email" ? "email" : f.type === "tel" ? "tel" : "text";
