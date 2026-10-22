@@ -634,9 +634,9 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   /* answers in two columns */
   .q--choice .q__body:not(.pics):not(.chips) { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .q__body .opt { min-height: 52px; padding: 12px 18px; }
-  .q__body.is-long { grid-template-columns: repeat(3, 1fr); margin-inline: 0; }
-  .q__body.is-long.is-four,
-  .q__body.is-pair { grid-template-columns: repeat(2, 1fr); margin-inline: 0; }
+  .q--choice .q__body.is-long:not(.pics):not(.chips) { grid-template-columns: repeat(3, 1fr); margin-inline: 0; }
+  .q--choice .q__body.is-long.is-four,
+  .q--choice .q__body.is-pair { grid-template-columns: repeat(2, 1fr); margin-inline: 0; }
   .is-long .opt,
   .is-long .opt:last-child:nth-child(odd) { grid-column: auto; min-height: 72px; padding: 12px 14px; }
   .is-pair .opt { min-height: 90px; }

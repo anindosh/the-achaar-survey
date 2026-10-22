@@ -154,9 +154,11 @@ window.SURVEY_QUESTIONS = [
   },
   {
     id: "matters",
-    column: "What matters most when buying achaar",
-    type: "single",
-    title: "What matters most when you buy achaar?",
+    column: "What matters when buying achaar",
+    type: "multi",
+    title: "What matters when you buy achaar?",
+    hint: "Select any 2",
+    max: 2,
     options: [
       ["Taste"],
       ["Less oil"],
