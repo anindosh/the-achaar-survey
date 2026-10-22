@@ -62,28 +62,41 @@
     render(1);
   });
 
+  // A question with showIf: { question, equals } only appears when that earlier answer matches.
+  function applies(q) {
+    if (!q.showIf) return true;
+    return [].concat(answers[q.showIf.question] || []).includes(q.showIf.equals);
+  }
+
   function back() {
-    if (index > 0) { index--; render(-1); }
+    let i = index - 1;
+    while (i >= 0 && !applies(QUESTIONS[i])) i--;
+    if (i >= 0) { index = i; render(-1); }
     else show("home");
   }
 
   function next() {
-    if (index < QUESTIONS.length - 1) { index++; render(1); }
+    let i = index + 1;
+    while (i < QUESTIONS.length && !applies(QUESTIONS[i])) i++;
+    if (i < QUESTIONS.length) { index = i; render(1); }
     else submit();
   }
 
   // ---------- rendering ----------
   function renderDots() {
     dots.innerHTML = "";
-    QUESTIONS.forEach((_, i) => {
+    // only count questions that apply given the answers so far
+    const shown = QUESTIONS.map((q, i) => i).filter((i) => applies(QUESTIONS[i]));
+    shown.forEach((i) => {
       const d = el("span", "dot" + (i === index ? " is-current" : i < index ? " is-done" : ""));
       d.innerHTML = DOT;
       dots.append(d);
     });
-    const count = el("span", "dots__count", `${index + 1} of ${QUESTIONS.length}`);
+    const pos = shown.indexOf(index) + 1;
+    const count = el("span", "dots__count", `${pos} of ${shown.length}`);
     count.setAttribute("aria-hidden", "true");
     dots.append(count);
-    dots.setAttribute("aria-label", `Question ${index + 1} of ${QUESTIONS.length}`);
+    dots.setAttribute("aria-label", `Question ${pos} of ${shown.length}`);
   }
 
   function render(direction) {
@@ -450,7 +463,7 @@
     QUESTIONS.forEach((q) => {
       const parts = q.type === "fields" ? q.fields : [q];
       parts.forEach((p) => {
-        const v = answers[p.id];
+        const v = applies(q) ? answers[p.id] : undefined; // skipped follow-ups stay blank
         columns.push(p.column);
         row[p.column] = Array.isArray(v) ? v.join(", ") : v === undefined ? "" : v;
       });

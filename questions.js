@@ -17,6 +17,7 @@
 //   exclusive for multi: options that can't be combined with others (picking one clears the rest)
 //   other     the option label (e.g. "Other") that reveals a text field; saved as "Other: <their words>"
 //             (otherPlaceholder / otherMissing set the field's placeholder and empty-field message)
+//   showIf    { question: "<id>", equals: "<answer>" } — only ask this when that earlier answer was picked
 //   reaction  little pop-up shown after answering (optional)
 window.SURVEY_QUESTIONS = [
   {
@@ -31,6 +32,37 @@ window.SURVEY_QUESTIONS = [
       ["Only when my food tastes meh"],
       ["On special occasions"],
       ["Never :("]
+    ],
+    required: true
+  },
+  {
+    id: "trend",
+    column: "Eats achaar vs a few years ago",
+    type: "single",
+    title: "Compared to a few years ago, do you eat achaar…",
+    options: [
+      ["More"],
+      ["About the same"],
+      ["Less"]
+    ],
+    required: true
+  },
+  {
+    id: "why-less",
+    column: "Why they eat less achaar",
+    type: "multi",
+    title: "Why?",
+    hint: "Pick up to 2",
+    max: 2,
+    showIf: { question: "trend", equals: "Less" },
+    options: [
+      ["Too much oil"],
+      ["Too much salt"],
+      ["Acidity or stomach trouble"],
+      ["I don’t eat Indian meals as often"],
+      ["I don’t live with family anymore"],
+      ["Can’t find achaar I like"],
+      ["I don’t want to eat more"]
     ],
     required: true
   },
