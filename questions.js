@@ -55,7 +55,9 @@ window.SURVEY_QUESTIONS = [
     column: "Why they eat less achaar",
     type: "multi",
     title: "Why?",
-    hint: "Select all that apply",
+    hint: "Select any 2",
+    max: 2,
+    autoAdvance: true,
     showIf: { question: "trend", equals: "Less" },
     options: [
       ["Too much oil & salt"],
