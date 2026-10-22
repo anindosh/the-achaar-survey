@@ -122,16 +122,15 @@ window.SURVEY_QUESTIONS = [
   },
   {
     id: "annoys",
-    column: "What annoys them while eating achaar at home",
+    column: "What annoys them most while eating achaar at home",
     type: "single",
-    title: "What annoys you while eating achaar at home?",
+    title: "What annoys you most while eating achaar at home?",
     other: "Other",
     otherPlaceholder: "What annoys you?",
     otherMissing: "Please tell us what annoys you :(",
     options: [
       ["Oil gets on the jar, lid and shelf"],
       ["It gets spoilt easily"],
-      ["The jar is too big"],
       ["Nothing really bothers me"],
       ["Other"]
     ],
@@ -159,7 +158,7 @@ window.SURVEY_QUESTIONS = [
     type: "single",
     title: "What matters most when you buy achaar?",
     options: [
-      ["Tastes like home"],
+      ["Taste"],
       ["Less oil"],
       ["No preservatives"],
       ["Convenient packaging"],
