@@ -71,12 +71,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
   pointer-events: none;
   user-select: none;
 }
-.deco--chillies { top: 0;     right: 0; width: calc(151 * var(--u)); }
-.deco--note     { top: 17.8%; left: 0;  width: calc(274 * var(--u)); }
-.deco--bowl     { top: 9.5%;  right: 0; width: calc(115 * var(--u)); }
+.deco--chillies { top: 0.9%;  right: 0; width: calc(128 * var(--u)); }
+.deco--note     { top: 24.4%; left: 0;  width: calc(238 * var(--u)); }
+.deco--bowl     { top: -10.9%; left: calc(-42 * var(--u)); width: calc(208 * var(--u)); }
 .deco--jar      { top: 43.4%; left: 0;  width: calc(73 * var(--u)); }
-/* the clip hides the faint frame edge baked into the top of these two SVGs */
-.deco--nani     { bottom: 0;  left: 0;  width: calc(161 * var(--u)); clip-path: inset(calc(22 * var(--u)) 0 0 0); }
+/* the clip hides the faint frame edge baked into the top of these two images */
+.deco--nani     { bottom: 0;  left: 0;  width: calc(260 * var(--u)); clip-path: inset(calc(88 * var(--u)) 0 0 0); }
 .deco--tomatoes { bottom: 0;  right: 0; width: calc(167 * var(--u)); clip-path: inset(calc(12 * var(--u)) 0 0 0); }
 
 .home__content {
@@ -130,8 +130,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .home__sub { font-size: calc(14 * var(--u)); }
 
   /* every photo is cut flat on the side(s) that bleed off the screen, so they stay flush with those edges */
-  .deco--note { top: 14%; }
-  .deco--bowl { top: 18%; }
+  .deco--note { top: 14%; width: calc(274 * var(--u)); }
+  .deco--bowl { top: calc(80 * var(--u)); left: auto; right: calc(-30 * var(--u)); } /* tucked under the chillies on the right */
   .deco--jar  { top: 33%; }
 }
 
