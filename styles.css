@@ -433,7 +433,29 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .submit-btn:hover:not(:disabled) { transform: scale(1.05) rotate(-2deg); }
 .submit-btn:active:not(:disabled) { transform: scale(.96); }
 .submit-btn:disabled { opacity: .35; cursor: default; }
-.submit-btn.is-sending { opacity: .7; animation: wiggle 1s ease-in-out infinite; }
+/* while sending: the word is covered by a cream patch with a spinning loader on it */
+.submit-btn { position: relative; }
+.submit-btn__loader {
+  position: absolute;
+  left: 22%; right: 22%; top: 24%; bottom: 24%;
+  display: none;
+  place-items: center;
+  border-radius: 40%;
+  background: var(--cream);
+}
+.submit-btn__loader::after {
+  content: "";
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+  border: calc(3 * var(--u)) solid rgba(168, 26, 26, .25);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+.submit-btn.is-sending,
+.submit-btn.is-sending:disabled { opacity: 1; cursor: progress; }
+.submit-btn.is-sending .submit-btn__loader { display: grid; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .submit-btn:focus-visible { outline: 2px dashed var(--cream); outline-offset: 5px; border-radius: 30px; }
 .arrow--next.is-hidden { visibility: hidden; }
 

@@ -140,7 +140,7 @@
       nextBtn.tabIndex = -1;
       submitBtn = el("button", "submit-btn");
       submitBtn.type = "submit";
-      submitBtn.innerHTML = '<img src="assets/button-submit.svg" alt="Submit">';
+      submitBtn.innerHTML = '<img src="assets/button-submit.svg" alt="Submit"><span class="submit-btn__loader" aria-hidden="true"></span>';
       card.insertBefore(submitBtn, nav);
     }
 
@@ -159,7 +159,7 @@
     const refresh = () => {
       nextBtn.classList.toggle("is-waiting", !!api.missing());
       if (!api.missing()) error.textContent = ""; // clear "please answer" once it's answered
-      if (submitBtn) submitBtn.disabled = !!api.missing();
+      if (submitBtn) submitBtn.disabled = submitting || !!api.missing();
       const ready = !api.missing() && !!api.waitsForTap && api.waitsForTap();
       continueBtn.classList.toggle("is-shown", ready);
       continueBtn.tabIndex = ready ? 0 : -1;
