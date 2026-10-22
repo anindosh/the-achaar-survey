@@ -59,21 +59,9 @@ function book() {
   return ss;
 }
 
-// Open the web app URL in a browser to check the setup.
-// Add ?test=1 to the end of the URL to write a test row.
-function doGet(e) {
-  try {
-    const ss = book();
-    if (e && e.parameter && e.parameter.test) {
-      // goes in its own tab so it doesn't disturb the Responses columns
-      const test = ss.getSheetByName('Setup test') || ss.insertSheet('Setup test');
-      test.appendRow([new Date(), 'The survey can write to this sheet. You can delete this tab.']);
-      return json({ ok: true, message: 'Test row added to the "Setup test" tab of "' + ss.getName() + '".' });
-    }
-    return json({ ok: true, message: 'Achaar survey endpoint is running.', sheet: ss.getName() });
-  } catch (err) {
-    return json({ ok: false, error: String(err) });
-  }
+// Opening the web app URL in a browser just confirms it's live; it doesn't reveal anything about the sheet.
+function doGet() {
+  return json({ ok: true, message: 'Achaar survey endpoint is running.' });
 }
 
 // Store everything as plain text and stop answers from being treated as spreadsheet formulas.
