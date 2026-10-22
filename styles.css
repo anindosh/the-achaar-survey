@@ -151,6 +151,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .home__title img { width: calc(320 * var(--v)); }
   .home__sub { margin-top: calc(14 * var(--v)); font-size: calc(18.8 * var(--v)); text-align: center; }
   .home__sub br { display: none; }
+
+  /* final screen: a wider column for the personal note */
+  .view--done .done__content { width: calc(460 * var(--u)); }
   .start-btn { margin-top: calc(42 * var(--v)); width: calc(232 * var(--v)); }
 }
 
