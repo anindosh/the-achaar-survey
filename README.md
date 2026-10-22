@@ -27,6 +27,8 @@ assets/         images and the Start Survey button
    ```
 7. Commit and push. The first submission creates a **Responses** tab with a header row.
 
+**Check it works:** open the web app URL in a private/incognito window. You should see `"ok":true` with your sheet's name. If you get a Google sign-in page instead, the deployment isn't set to **Who has access: Anyone**, and the survey can't save answers. Add `?test=1` to the URL to write a test row to a "Setup test" tab.
+
 **Who can see what:** "Anyone" only means anyone can *send* answers to the script. The script can only add rows. Visitors can't read the sheet, and the sheet itself is shared with no one.
 
 > If you change `Code.gs` later, use **Deploy → Manage deployments → ✏️ → Version: New version**. That keeps the same URL.

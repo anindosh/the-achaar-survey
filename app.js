@@ -466,13 +466,16 @@
 
     try {
       if (!ENDPOINT) throw new Error("SHEET_ENDPOINT is not set in config.js");
-      // text/plain + no-cors keeps this a "simple" request so Apps Script accepts it without a CORS preflight.
-      await fetch(ENDPOINT, {
+      // text/plain keeps this a "simple" request (no CORS preflight), and Apps Script's reply allows
+      // cross-origin reads, so we can check the row was really saved. If the web app isn't open to
+      // "Anyone", Google answers with a sign-in page instead and this throws.
+      const res = await fetch(ENDPOINT, {
         method: "POST",
-        mode: "no-cors",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
+      const reply = await res.json();
+      if (!reply.ok) throw new Error(reply.error || "The sheet script reported a problem");
     } catch (err) {
       console.error("Could not send answers:", err, payload);
       submitting = false;
