@@ -277,7 +277,7 @@
     body.append(wrap);
     setTimeout(() => input.focus({ preventScroll: true }), 350);
     return {
-      missing: () => (q.required && !input.value.trim() ? "Arre, answer this one first!" : ""),
+      missing: () => (q.required && !input.value.trim() ? "Please answer this to proceed." : ""),
       invalid: () => "",
       save: () => {
         const v = input.value.trim();
@@ -334,7 +334,7 @@
 
     const empty = () => (multi ? selected.length === 0 : !selected);
     return {
-      missing: () => (q.required && empty() ? "Arre, pick one first!" : ""),
+      missing: () => (q.required && empty() ? "Please pick one to proceed." : ""),
       waitsForTap: () => multi,
       invalid: () => "",
       save: () => { if (empty()) delete answers[q.id]; else answers[q.id] = selected; }
@@ -415,7 +415,7 @@
     return {
       waitsForTap: () => multi || otherOn(),
       missing: () => {
-        if (q.required && empty()) return "Arre, pick one first!";
+        if (q.required && empty()) return "Please pick one to proceed.";
         if (otherOn() && !otherInput.value.trim()) return q.otherMissing || "Please tell us a little more :(";
         return "";
       },

@@ -379,7 +379,16 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 
 .q__error,
 .field__error { margin: 12px 0 0; font-size: calc(11 * var(--u)); color: #590E0E; } /* same size as the placeholders, same red as the waiting arrow */
-.q__error { min-height: 1.3em; }
+/* "please pick one" sits centred just above the arrows and dots; its space is taken out of the
+   gap above them, so showing it never moves anything */
+.q__error {
+  order: 2;
+  height: 1.3em;
+  margin: 0 0 calc(-1.3em - 12 * var(--u));
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
 .field__error { margin: 6px 0 0; }
 .line-field[hidden] { display: none; }
 .other-field { margin-top: 4px; }
