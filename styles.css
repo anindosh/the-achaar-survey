@@ -279,6 +279,9 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .opt__emoji { font-size: 18px; line-height: 1; }
 .opt[aria-pressed="true"] { color: var(--red); }
 .opt[aria-pressed="true"] .opt__shape path { fill: var(--cream); }
+/* small photo above the text in a tile */
+.has-images .opt { flex-direction: column; gap: calc(6 * var(--u)); }
+.opt__img { position: relative; display: block; height: calc(46 * var(--u)); width: auto; max-width: 80%; object-fit: contain; }
 /* long lists: tighter rows so they still fit on one screen */
 /* long lists become a quiz-style grid of big tiles running almost edge to edge */
 .q__body.is-long {
@@ -636,6 +639,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .is-long .opt,
   .is-long .opt:last-child:nth-child(odd) { grid-column: auto; min-height: 72px; padding: 12px 14px; }
   .is-pair .opt { min-height: 90px; }
+  .opt__img { height: 48px; }
   .other-field { grid-column: 1 / -1; }
 
   /* photos: one row */

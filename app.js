@@ -387,11 +387,22 @@
     const isOn = (label) => (multi ? selected.includes(label) : selected === label);
     const otherOn = () => !!q.other && isOn(q.other);
 
-    q.options.forEach(([label, emoji]) => {
+    // an option can be [label, emoji] or { label, image }
+    const opts = q.options.map((o) => (Array.isArray(o) ? o : [o.label, o.emoji, o.image]));
+    if (opts.some((o) => o[2])) body.classList.add("has-images");
+    opts.forEach(([label, emoji, image]) => {
       const btn = el("button", "opt");
       btn.type = "button";
       if (q.type !== "chips") btn.innerHTML = OPTION_SHAPE;
       if (emoji) btn.append(el("span", "opt__emoji", emoji));
+      if (image) {
+        const img = document.createElement("img");
+        img.className = "opt__img";
+        img.src = image;
+        img.alt = "";
+        img.decoding = "async";
+        btn.append(img);
+      }
       btn.append(el("span", "opt__label", label));
       btn.setAttribute("aria-pressed", String(isOn(label)));
 
@@ -405,7 +416,7 @@
         } else {
           selected = label;
         }
-        body.querySelectorAll(".opt").forEach((b, i) => b.setAttribute("aria-pressed", String(isOn(q.options[i][0]))));
+        body.querySelectorAll(".opt").forEach((b, i) => b.setAttribute("aria-pressed", String(isOn(opts[i][0]))));
         syncOther();
         if (otherOn()) { otherInput.focus({ preventScroll: true }); return; } // wait for them to type
         // single-choice answers move on by themselves; pick-several questions wait for the Next button

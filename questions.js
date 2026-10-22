@@ -9,7 +9,7 @@
 //             a "fields" entry can also be type "checkbox" (saved as Yes / No), "tel", or "choice"
 //             (a row of pills from its `options`), and
 //             showIf: "<checkbox id>" only shows it while that box is ticked
-//   options   for single / multi / chips: [label, emoji?] pairs
+//   options   for single / multi / chips: [label, emoji?] pairs, or { label, image } for a small photo in the box
 //             for pictures: { label, image, width } — width is the image's width in mockup px
 //             (four pictures make a 2 × 2 grid where every photo is the same height instead)
 //   max       for multi / pictures: how many can be picked (pictures become multi-select)
@@ -84,12 +84,12 @@ window.SURVEY_QUESTIONS = [
     title: "In the last 6 months, where have you eaten achaar?",
     hint: "Select all that apply",
     options: [
-      ["With home food"],
-      ["Packed lunchbox"],
-      ["In cafeteria"],
-      ["In restaurants"],
-      ["While travelling (trains, flights, road trips)"],
-      ["Abroad (living or travelling outside India)"]
+      { label: "With home food", image: "assets/where-home-food.webp" },
+      { label: "Packed lunchbox", image: "assets/where-packed-lunchbox.webp" },
+      { label: "In cafeteria", image: "assets/where-cafeteria.webp" },
+      { label: "In restaurants" }, // image to come
+      { label: "While travelling (trains, flights, road trips)", image: "assets/where-while-travelling.webp" },
+      { label: "Abroad (living or travelling outside India)", image: "assets/where-living-abroad.webp" }
     ],
     required: true
   },
