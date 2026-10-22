@@ -16,6 +16,7 @@
 //   multi     for pictures: true lets people pick any number
 //   layout    "tiles" shows single / multi options as the big quiz-style tile grid (automatic past 6 options);
 //             "stack" keeps them in one column however many there are
+//   autoAdvance for multi with max: move on as soon as `max` answers are picked
 //   exclusive for multi: options that can't be combined with others (picking one clears the rest)
 //   other     the option label (e.g. "Other") that reveals a text field; saved as "Other: <their words>"
 //             (otherPlaceholder / otherMissing set the field's placeholder and empty-field message)
@@ -159,6 +160,7 @@ window.SURVEY_QUESTIONS = [
     title: "What matters when you buy achaar?",
     hint: "Select any 2",
     max: 2,
+    autoAdvance: true,
     options: [
       ["Taste"],
       ["Less oil"],

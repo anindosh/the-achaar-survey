@@ -421,6 +421,8 @@
         if (otherOn()) { otherInput.focus({ preventScroll: true }); return; } // wait for them to type
         // single-choice answers move on by themselves; pick-several questions wait for the Next button
         if (!multi) setTimeout(() => card.requestSubmit(nextBtn), 400);
+        // pick-several questions marked autoAdvance move on once the limit is reached
+        else if (q.autoAdvance && q.max && selected.length === q.max) setTimeout(() => card.requestSubmit(nextBtn), 400);
       });
       body.append(btn);
     });
