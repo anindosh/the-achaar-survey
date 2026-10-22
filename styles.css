@@ -436,6 +436,35 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .submit-btn.is-sending { opacity: .7; animation: wiggle 1s ease-in-out infinite; }
 .submit-btn:focus-visible { outline: 2px dashed var(--cream); outline-offset: 5px; border-radius: 30px; }
 .arrow--next.is-hidden { visibility: hidden; }
+
+/* "Next" button that appears under pick-several answers; its space is kept so nothing jumps */
+.continue-btn {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(10 * var(--u));
+  margin-top: calc(24 * var(--u));
+  padding: calc(10 * var(--u)) calc(26 * var(--u)) calc(9 * var(--u));
+  border: 0;
+  border-radius: 46% 54% 50% 50% / 60% 55% 45% 40%;
+  background: var(--cream);
+  color: var(--red);
+  font-size: calc(15 * var(--u));
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(8px) scale(.9);
+  transition: opacity .2s, transform .25s cubic-bezier(.3, 1.6, .5, 1), visibility 0s linear .25s;
+}
+.continue-btn svg { display: block; width: calc(24 * var(--u)); height: auto; }
+.continue-btn.is-shown { visibility: visible; opacity: 1; transform: none; transition: opacity .2s, transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+.continue-btn.is-shown:hover { transform: scale(1.05) rotate(-1.5deg); }
+.continue-btn:active { transform: scale(.96); }
+.continue-btn:focus-visible { outline: 2px dashed var(--cream); outline-offset: 4px; }
+/* the bottom arrow nudges forward while there's a choice ready to send */
+.arrow--next.is-ready { animation: nudge-right 1.4s ease-in-out infinite; }
+@keyframes nudge-right { 0%, 60%, 100% { transform: translateX(0); } 30% { transform: translateX(6px); } }
 .field__error:empty { display: none; }
 
 /* back / next arrows */
@@ -584,6 +613,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .q__error,
   .field__error { font-size: calc(15 * var(--u)); }
   .check-field__label { font-size: calc(18 * var(--u)); }
+  .continue-btn { font-size: calc(19 * var(--u)); }
   .reaction     { font-size: 27px; }
 }
 

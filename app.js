@@ -131,6 +131,14 @@
       card.insertBefore(submitBtn, nav);
     }
 
+    // On questions that don't move on by themselves (pick-several, or "Other" with a text box),
+    // a Next button shows up under the answers once there's something to send.
+    const continueBtn = el("button", "continue-btn");
+    continueBtn.type = "submit";
+    continueBtn.innerHTML = `<span>Next</span>${ARROW_NEXT}`;
+    const mayWait = q.type === "multi" || q.type === "chips" || (q.type === "pictures" && q.max) || !!q.other;
+    if (!isLast && mayWait) card.insertBefore(continueBtn, nav); // only where it can appear, so other pages keep their layout
+
     const builders = { fields: buildFields, longtext: buildLongText, single: buildChoice, multi: buildChoice, chips: buildChoice, pictures: buildPictures, spice: buildSpice };
     const api = (builders[q.type] || buildLongText)(q, body, nextBtn);
 
@@ -139,6 +147,10 @@
       nextBtn.classList.toggle("is-waiting", !!api.missing());
       if (!api.missing()) error.textContent = ""; // clear "please answer" once it's answered
       if (submitBtn) submitBtn.disabled = !!api.missing();
+      const ready = !api.missing() && !!api.waitsForTap && api.waitsForTap();
+      continueBtn.classList.toggle("is-shown", ready);
+      continueBtn.tabIndex = ready ? 0 : -1;
+      nextBtn.classList.toggle("is-ready", ready);
     };
     card.oninput = refresh;
     card.onclick = () => setTimeout(refresh);
@@ -307,6 +319,7 @@
     const empty = () => (multi ? selected.length === 0 : !selected);
     return {
       missing: () => (q.required && empty() ? "Arre, pick one first!" : ""),
+      waitsForTap: () => multi,
       invalid: () => "",
       save: () => { if (empty()) delete answers[q.id]; else answers[q.id] = selected; }
     };
@@ -384,6 +397,7 @@
 
     const empty = () => (multi ? selected.length === 0 : !selected);
     return {
+      waitsForTap: () => multi || otherOn(),
       missing: () => {
         if (q.required && empty()) return "Arre, pick one first!";
         if (otherOn() && !otherInput.value.trim()) return q.otherMissing || "Please tell us a little more :(";
