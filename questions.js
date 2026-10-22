@@ -53,14 +53,10 @@ window.SURVEY_QUESTIONS = [
     column: "Why they eat less achaar",
     type: "multi",
     title: "Why?",
-    hint: "Pick up to 2",
-    max: 2,
+    hint: "Select all that apply",
     showIf: { question: "trend", equals: "Less" },
     options: [
-      ["Too much oil"],
-      ["Too much salt"],
-      ["Acidity or stomach trouble"],
-      ["I don’t eat Indian meals as often"],
+      ["Too much oil & salt"],
       ["I don’t live with family anymore"],
       ["Can’t find achaar I like"],
       ["I don’t want to eat more"]
