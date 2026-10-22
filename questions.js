@@ -114,7 +114,7 @@ window.SURVEY_QUESTIONS = [
     layout: "tiles",
     title: "When you think of taking your favourite achaar to work, what stops you?",
     hint: "Select all that apply",
-    exclusive: ["Nothing stops me"],
+    exclusive: ["I don’t really want to", "Nothing stops me"],
     options: [
       { label: "It leaks I’m scared", image: "assets/stop-leaks.webp" },
       { label: "I have to pack spoons etc. Too much effort.", image: "assets/stop-spoons.webp" },
