@@ -145,6 +145,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .deco--maa-desk { bottom: calc(-172 * var(--v)); left: calc(-145 * var(--v)); width: calc(518 * var(--v)); }
   .deco--guy      { bottom: 0; left: calc(50% + 127 * var(--v)); width: calc(232 * var(--v)); }
   .deco--tomatoes { bottom: 0; right: 0; width: calc(167 * var(--v)); }
+  .deco--matchbox { bottom: calc(250 * var(--v)); right: calc(227 * var(--v)); width: calc(90 * var(--v)); } /* small, in the gap above the guy and the tomatoes */
 
   .home__content { top: calc(50% - 96 * var(--v)); left: calc(16 * var(--v)); transform: none; } /* centred 8px right of middle, as in the mockup */
   .home__title img { width: calc(320 * var(--v)); }
