@@ -149,7 +149,7 @@
     const continueBtn = el("button", "continue-btn");
     continueBtn.type = "submit";
     continueBtn.innerHTML = '<img src="assets/button-next.svg" alt="Next">';
-    const mayWait = q.type === "multi" || q.type === "chips" || (q.type === "pictures" && q.max) || !!q.other;
+    const mayWait = q.type === "multi" || q.type === "chips" || (q.type === "pictures" && (q.max || q.multi)) || !!q.other;
     if (!isLast && mayWait) card.insertBefore(continueBtn, nav); // only where it can appear, so other pages keep their layout
 
     const builders = { fields: buildFields, longtext: buildLongText, single: buildChoice, multi: buildChoice, chips: buildChoice, pictures: buildPictures, spice: buildSpice };
@@ -289,7 +289,7 @@
   // Two (or more) photos side by side with a caption; tapping one answers and moves on.
   // Photos with a caption. Single choice answers and moves on; with `max`, several can be picked.
   function buildPictures(q, body, nextBtn) {
-    const multi = !!q.max;
+    const multi = !!q.max || !!q.multi;
     body.classList.add("pics");
     if (q.options.length === 4) { body.classList.add("is-grid"); card.classList.add("q--pic-grid"); }
     body.setAttribute("role", "group");
@@ -313,12 +313,15 @@
       btn.append(photo, el("span", "pic__label", o.label));
       btn.addEventListener("click", () => {
         if (multi) {
+          const exclusive = q.exclusive || [];
           if (selected.includes(o.label)) selected = selected.filter((s) => s !== o.label);
-          else if (selected.length >= q.max) { nudge(btn); return; }
-          else selected.push(o.label);
+          else if (exclusive.includes(o.label)) selected = [o.label];
+          else if (q.max && selected.length >= q.max) { nudge(btn); return; }
+          else selected = selected.filter((s) => !exclusive.includes(s)).concat(o.label);
           body.querySelectorAll(".pic").forEach((b, i) => b.setAttribute("aria-pressed", String(isOn(q.options[i].label))));
-          // once the limit is reached there's nothing more to choose, so move on
-          if (selected.length === q.max) setTimeout(() => card.requestSubmit(nextBtn), 250);
+          // nothing more to choose once the limit is hit or a stand-alone answer is picked, so move on
+          const done = (q.max && selected.length === q.max) || (selected.length === 1 && exclusive.includes(selected[0]));
+          if (done) setTimeout(() => card.requestSubmit(nextBtn), 400);
         } else {
           selected = o.label;
           body.querySelectorAll(".pic").forEach((b) => b.setAttribute("aria-pressed", "false"));

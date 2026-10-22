@@ -12,6 +12,7 @@
 //             for pictures: { label, image, width } — width is the image's width in mockup px
 //             (four pictures make a 2 × 2 grid where every photo is the same height instead)
 //   max       for multi / pictures: how many can be picked (pictures become multi-select)
+//   multi     for pictures: true lets people pick any number
 //   layout    "tiles" shows single / multi options as the big quiz-style tile grid (automatic past 6 options);
 //             "stack" keeps them in one column however many there are
 //   exclusive for multi: options that can't be combined with others (picking one clears the rest)
@@ -112,12 +113,12 @@ window.SURVEY_QUESTIONS = [
     column: "What stops them taking achaar to work",
     type: "pictures",
     title: "When you think of taking your favourite achaar to work, what stops you?",
-    hint: "Select any 2",
-    max: 2,
+    multi: true,
+    exclusive: ["I don’t really want to"],
     options: [
       { label: "It leaks I’m scared", image: "assets/leaks.webp" },
-      { label: "Too much jhanjhat to pack it", image: "assets/jhanjhat.webp" },
-      { label: "Don’t want to", image: "assets/dont-want.webp" },
+      { label: "I have to pack spoons etc. Too much effort.", image: "assets/jhanjhat.webp" },
+      { label: "I don’t really want to", image: "assets/dont-want.webp" },
       { label: "Doesn’t fit in my bag", image: "assets/bag.webp" }
     ],
     required: true
