@@ -281,7 +281,9 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .opt[aria-pressed="true"] .opt__shape path { fill: var(--cream); }
 /* small photo above the text in a tile */
 .has-images .opt { flex-direction: column; gap: calc(6 * var(--u)); }
-.q__body.has-images .opt { padding-block: calc(24 * var(--u)); } /* room between the text and the drawn border */
+.q__body.has-images .opt { padding-block: calc(18 * var(--u)); }
+/* photo tiles keep one size: an odd last tile stays tile-sized and sits centred on its row */
+.q__body.has-images .opt:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 5px); } /* room between the text and the drawn border */
 .opt__img { position: relative; display: block; height: calc(88 * var(--u)); width: auto; max-width: 80%; object-fit: contain; }
 /* long lists: tighter rows so they still fit on one screen */
 /* long lists become a quiz-style grid of big tiles running almost edge to edge */
@@ -642,6 +644,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   .is-pair .opt { min-height: 90px; }
   .opt__img { height: min(96px, 10.5svh); } /* shorter laptop screens get slightly smaller photos so nothing scrolls */
   .q__body.has-images .opt { padding-block: 22px; }
+  .q__body.has-images .opt:last-child:nth-child(odd) { grid-column: auto; justify-self: stretch; width: auto; padding-block: 22px; }
   .other-field { grid-column: 1 / -1; }
 
   /* photos: one row */

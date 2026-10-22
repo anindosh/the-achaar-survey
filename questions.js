@@ -110,16 +110,17 @@ window.SURVEY_QUESTIONS = [
   {
     id: "stops",
     column: "What stops them taking achaar to work",
-    type: "pictures",
+    type: "multi",
+    layout: "tiles",
     title: "When you think of taking your favourite achaar to work, what stops you?",
     hint: "Select all that apply",
-    multi: true,
-    exclusive: ["I don’t really want to"],
+    exclusive: ["Nothing stops me"],
     options: [
-      { label: "It leaks I’m scared", image: "assets/leaks.webp" },
-      { label: "I have to pack spoons etc. Too much effort.", image: "assets/jhanjhat.webp" },
-      { label: "I don’t really want to", image: "assets/dont-want.webp" },
-      { label: "Doesn’t fit in my bag", image: "assets/bag.webp" }
+      { label: "It leaks I’m scared", image: "assets/stop-leaks.webp" },
+      { label: "I have to pack spoons etc. Too much effort.", image: "assets/stop-spoons.webp" },
+      { label: "Doesn’t fit in my bag", image: "assets/stop-bag.webp" },
+      { label: "I don’t really want to", image: "assets/stop-dont-want.webp" },
+      { label: "Nothing stops me", image: "assets/stop-nothing.webp" }
     ],
     required: true
   },
