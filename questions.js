@@ -79,6 +79,7 @@ window.SURVEY_QUESTIONS = [
     id: "where",
     column: "Where they ate achaar (last 6 months)",
     type: "multi",
+    layout: "tiles",
     title: "In the last 6 months, where have you eaten achaar?",
     hint: "Select all that apply",
     options: [
@@ -87,10 +88,8 @@ window.SURVEY_QUESTIONS = [
       ["In cafeteria"],
       ["In restaurants"],
       ["While travelling (trains, flights, road trips)"],
-      ["Abroad (living or travelling outside India)"],
-      ["Haven’t eaten it outside home"]
+      ["Abroad (living or travelling outside India)"]
     ],
-    exclusive: ["Haven’t eaten it outside home"],
     required: true
   },
   {
