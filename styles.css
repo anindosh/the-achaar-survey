@@ -342,6 +342,8 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
 .is-grid .pic__photo { max-width: 100%; }
 .is-grid .pic img { width: auto; height: calc(148 * var(--u) * var(--pic-scale)); /* same height as the "Which do you prefer?" photos */ max-width: 100%; object-fit: contain; object-position: left bottom; }
 .is-grid .pic__label { text-align: left; white-space: normal; min-height: 2.4em; line-height: 1.2; }
+/* bold without getting wider, so a picked caption keeps its line breaks */
+.is-grid .pic[aria-pressed="true"] .pic__label { font-weight: 400; -webkit-text-stroke: .045em currentColor; }
 /* no scaling here: scaling shows faint frame edges baked into these SVGs */
 .is-grid .pic img,
 .is-grid .pic:hover img,
