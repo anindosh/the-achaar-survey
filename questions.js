@@ -87,7 +87,7 @@ window.SURVEY_QUESTIONS = [
       { label: "With home food", image: "assets/where-home-food.webp" },
       { label: "Packed lunchbox", image: "assets/where-packed-lunchbox.webp" },
       { label: "In cafeteria", image: "assets/where-cafeteria.webp" },
-      { label: "In restaurants" }, // image to come
+      { label: "In restaurants", image: "assets/where-restaurants.webp" },
       { label: "While travelling (trains, flights, road trips)", image: "assets/where-while-travelling.webp" },
       { label: "Abroad (living or travelling outside India)", image: "assets/where-living-abroad.webp" }
     ],
