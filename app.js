@@ -135,7 +135,7 @@
     // a Next button shows up under the answers once there's something to send.
     const continueBtn = el("button", "continue-btn");
     continueBtn.type = "submit";
-    continueBtn.innerHTML = `<span>Next</span>${ARROW_NEXT}`;
+    continueBtn.innerHTML = '<img src="assets/button-next.svg" alt="Next">';
     const mayWait = q.type === "multi" || q.type === "chips" || (q.type === "pictures" && q.max) || !!q.other;
     if (!isLast && mayWait) card.insertBefore(continueBtn, nav); // only where it can appear, so other pages keep their layout
 
