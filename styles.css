@@ -505,7 +505,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   padding: 0;
   border: 0;
   background: none;
-  width: calc(136 * var(--u));
+  width: calc(161 * var(--u));
   visibility: hidden;
   opacity: 0;
   transform: translateY(8px) scale(.9);
@@ -613,6 +613,7 @@ textarea.field { min-height: 120px; resize: none; line-height: 1.4; }
   /* photos: one row */
   .pics { --pic-scale: 1; flex-wrap: nowrap; gap: 40px; margin: 28px 0 0; }
   .pic, .pic:nth-child(3n) { flex: 0 0 auto; }
+  .continue-btn { width: calc(136 * var(--u)); } /* a little smaller on laptop */
   .pics.is-grid { grid-template-columns: repeat(4, 150px); justify-content: center; gap: 20px; margin-inline: calc((var(--col) - 660px) / 2); }
   .is-grid .pic img { height: 150px; }
 
