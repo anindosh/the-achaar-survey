@@ -111,6 +111,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
   animation: wiggle 3.2s ease-in-out 1.2s infinite;
 }
 .start-btn img { display: block; width: 100%; }
+.home__note {
+  margin: calc(12 * var(--u)) 0 0;
+  font-size: calc(15 * var(--u));
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: rgba(255, 243, 194, .75);
+}
 .start-btn:hover  { transform: scale(1.06) rotate(-2deg); animation-play-state: paused; }
 .start-btn:active { transform: scale(.96); }
 .start-btn:focus-visible { outline: 3px dashed var(--cream); outline-offset: 6px; border-radius: 30px; }
@@ -155,6 +162,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   /* final screen: a wider column for the personal note */
   .view--done .done__content { width: calc(460 * var(--u)); }
   .start-btn { margin-top: calc(42 * var(--v)); width: calc(232 * var(--v)); }
+  .home__note { margin-top: calc(12 * var(--v)); font-size: calc(14 * var(--v)); }
 }
 
 /* ---------- survey ----------
