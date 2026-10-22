@@ -178,7 +178,7 @@ window.SURVEY_QUESTIONS = [
     title: "Help us put a name to your answers :)",
     fields: [
       { id: "name", column: "Name", type: "text", placeholder: "Your name*", required: true, missing: "Please tell us your name :(" },
-      { id: "email", column: "Email", type: "email", placeholder: "Your email ID (optional)" },
+      { id: "email", column: "Email", type: "email", placeholder: "Your email ID" },
       { id: "age", column: "Age group", type: "choice", label: "Your age*", options: ["18–25", "26–40", "40+"], required: true, missing: "Please pick your age group :(" },
       { id: "feedback", column: "Open to giving feedback", type: "checkbox", label: "We’re building something, and need your help. Would you be open to provide feedback on early versions?" },
       { id: "phone", column: "Phone", type: "tel", placeholder: "Your phone number", showIf: "feedback" }
