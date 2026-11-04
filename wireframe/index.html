@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The Achaar Survey — Wireframe</title>
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+  <div class="wf-tag">Wireframe</div>
+  <main class="stage" id="stage">
+
+    <!-- HOME -->
+    <section class="view view--home is-active" id="home" aria-labelledby="home-title">
+      <div class="ph ph--a" aria-hidden="true">image</div>
+      <div class="ph ph--b" aria-hidden="true">image</div>
+      <div class="ph ph--c" aria-hidden="true">image</div>
+      <div class="ph ph--d" aria-hidden="true">image</div>
+      <div class="home__content">
+        <h1 class="home__title" id="home-title">HI HOT STUFF</h1>
+        <p class="home__sub">We’re cooking something up.<br>But first, we want to hear from you.</p>
+        <button class="start-btn" id="start-btn" type="button">Start survey</button>
+        <p class="home__note">30 seconds of your time, promise</p>
+      </div>
+    </section>
+
+    <!-- SURVEY -->
+    <section class="view view--survey" id="survey" aria-live="polite">
+      <form class="survey__card" id="card" novalidate></form>
+    </section>
+
+    <!-- THANK YOU -->
+    <section class="view view--done" id="done" aria-labelledby="done-title">
+      <div class="done__content">
+        <h2 class="done__title" id="done-title">THANK YOU</h2>
+        <p class="done__text">Ever since I was little, I’ve loved achaar. Lately I’m not eating as much as I would like to because I’m clumsy and always end up spilling or spoiling my precious achaar.</p>
+        <p class="done__text">If that sounds like you, get in touch and share any thoughts you have. Every thought counts :)</p>
+        <a class="whatsapp-btn" id="whatsapp-btn" href="#">WhatsApp</a>
+        <div class="ph ph--done" aria-hidden="true">image</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>window.SURVEY_CONFIG = { SHEET_ENDPOINT: "" };</script>
+  <!-- same questions as the live survey, so the wireframe stays in sync -->
+  <script src="../questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

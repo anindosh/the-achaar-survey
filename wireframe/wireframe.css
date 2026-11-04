@@ -1,0 +1,93 @@
+/* Wireframe: greyscale, plain boxes, system font. Same structure as the live survey. */
+:root { --ink: #222; --mid: #777; --line: #999; --fill: #eee; --bg: #fff; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+button { font: inherit; color: inherit; cursor: pointer; }
+.wf-tag { position: fixed; top: 8px; left: 50%; transform: translateX(-50%); z-index: 10; padding: 2px 8px; border: 1px dashed var(--line); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--mid); background: var(--bg); }
+
+.stage { min-height: 100svh; }
+.view { display: none; min-height: 100svh; }
+.view.is-active { display: flex; }
+
+/* placeholders for photos */
+.ph { display: grid; place-items: center; background: var(--fill); border: 1px solid var(--line); color: var(--mid); font-size: 12px;
+  background-image: linear-gradient(to top right, transparent calc(50% - .5px), #bbb, transparent calc(50% + .5px)),
+                    linear-gradient(to top left, transparent calc(50% - .5px), #bbb, transparent calc(50% + .5px)); }
+
+/* home */
+.view--home { position: relative; align-items: center; justify-content: center; overflow: hidden; }
+.view--home .ph { position: absolute; width: 110px; height: 110px; }
+.ph--a { top: 24px; left: 16px; } .ph--b { top: 24px; right: 16px; } .ph--c { bottom: 24px; left: 16px; } .ph--d { bottom: 24px; right: 16px; }
+.home__content { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 24px; }
+.home__title, .done__title { margin: 0; font-size: 34px; letter-spacing: .04em; }
+.home__sub { margin: 14px 0 0; }
+.home__note { margin: 10px 0 0; font-size: 13px; font-style: italic; color: var(--mid); }
+.start-btn, .submit-btn, .continue-btn, .whatsapp-btn {
+  display: inline-block; margin-top: 28px; padding: 12px 32px; border: 2px solid var(--ink); border-radius: 6px;
+  background: var(--fill); color: var(--ink); font-weight: 600; text-decoration: none; text-align: center;
+}
+.start-btn:hover, .submit-btn:hover:not(:disabled), .continue-btn:hover:not(:disabled), .whatsapp-btn:hover { background: #ddd; }
+.submit-btn:disabled, .continue-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* question pages */
+.view--survey { flex-direction: column; }
+.survey__card { flex: 1; width: min(560px, 100% - 32px); margin: 0 auto; display: flex; flex-direction: column; justify-content: center; padding: 48px 0 24px; }
+.q__title { margin: 0; font-size: 20px; }
+.q__hint { margin: 6px 0 0; font-size: 13px; font-style: italic; color: var(--mid); }
+.q__body { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+.q__error { order: 3; min-height: 1.3em; margin: 8px 0 0; text-align: center; font-size: 13px; color: var(--mid); }
+
+/* answer options: plain boxes */
+.opt { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 14px;
+  border: 1.5px solid var(--line); border-radius: 6px; background: var(--bg); text-align: center; }
+.q__body.is-long, .q__body.is-pair { display: grid; grid-template-columns: 1fr 1fr; }
+.is-long .opt:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 5px); }
+.has-images .opt { flex-direction: column; }
+.opt__img { width: 90px; height: 68px; }
+.opt[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.opt:hover:not([aria-pressed="true"]) { background: var(--fill); }
+
+/* picture questions */
+.pics { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.pic { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border: 1.5px solid var(--line); border-radius: 6px; background: var(--bg); }
+.pic img { width: 120px; height: 90px; }
+.pic__photo { position: relative; line-height: 0; }
+.pic__tick { position: absolute; top: 4px; left: 4px; display: none; width: 20px; height: 20px; line-height: 20px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 12px; text-align: center; }
+.pic[aria-pressed="true"] { border-color: var(--ink); border-width: 2.5px; }
+.pic[aria-pressed="true"] .pic__tick { display: block; }
+.pic[aria-pressed="true"] .pic__label { font-weight: 700; }
+
+/* text fields, checkbox, age pills */
+.line-field { display: block; }
+.line-field[hidden] { display: none; }
+.field { width: 100%; padding: 10px 2px; border: 0; border-bottom: 1.5px solid var(--line); background: none; font: inherit; outline: none; }
+.field:focus { border-bottom-color: var(--ink); }
+.field__error { margin: 4px 0 0; font-size: 13px; color: var(--mid); }
+.field__error:empty { display: none; }
+.check-field { display: flex; gap: 10px; align-items: flex-start; margin-top: 10px; font-size: 15px; cursor: pointer; }
+.check-field__box { margin-top: 3px; width: 18px; height: 18px; }
+.pill-field { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; }
+.pill-field__label { color: var(--mid); font-style: italic; }
+.pill-field__row { display: flex; gap: 8px; }
+.pill { padding: 6px 14px; border: 1.5px solid var(--line); border-radius: 99px; background: var(--bg); }
+.pill[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.other-field { margin-top: 4px; }
+
+/* Submit sits under the answers; the back arrow and dots sit at the bottom */
+.continue-btn, .submit-btn { align-self: center; order: 2; }
+.q__nav { order: 4; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-top: 28px; }
+.arrow { padding: 6px; border: 0; background: none; line-height: 0; }
+.arrow svg { width: 28px; height: auto; }
+.arrow--next { visibility: hidden; } /* wireframe: Submit is the only way forward */
+.dots { display: flex; align-items: center; gap: 5px; }
+.dot { display: block; width: 9px; color: #ccc; } .dot svg { width: 100%; height: auto; display: block; }
+.dot.is-done { color: #888; } .dot.is-current { color: var(--ink); }
+.dots__count { margin-left: 8px; font-size: 12px; color: var(--mid); }
+
+/* thank you */
+.view--done { align-items: center; justify-content: center; }
+.done__content { width: min(460px, 100% - 32px); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.done__text { margin: 14px 0 0; text-align: left; }
+.ph--done { margin-top: 32px; width: 220px; height: 160px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
